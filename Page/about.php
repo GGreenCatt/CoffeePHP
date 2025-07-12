@@ -23,68 +23,7 @@
 </head>
 
 <body>
-  <!--Menu-->
-  <div class="navbar">
-    <div class="brand">
-      <a href="../index.html" class="brand-link">HIGHBUCKS<br>
-        <small>COFFEE</small>
-      </a>
-    </div>
-
-    <div class="navbar-m1">
-      <a class="nav-link " href="../index.html">trang chủ</a>
-      <div class=" nav-link dropdown">
-        thực đơn<span class="material-symbols-outlined">arrow_drop_down</span>
-        <div class="dropdown-content">
-          <a href="coffee.html">cafe</a>
-          <a href="main-dish.html">món chính</a>
-          <a href="drinks.html">đồ uống khác</a>
-          <a href="desserts.html">tráng miệng</a>
-          <a href="snack.html">đồ ăn vặt</a>
-        </div>
-      </div>
-      <a class="nav-link" href="service.html">dịch vụ</a>
-      <a class="nav-link" href="blog.html">blog</a>
-      <a class="nav-link activemenu" href="about.html">giới thiệu</a>
-      <a class="nav-link" href="contact.html">liên hệ</a>
-      <a class="nav-link" href="cart.html">
-        <span class="material-symbols-outlined">
-          shopping_cart
-        </span>
-      </a>
-    </div>
-  </div>
-  <!--Menu fixed-->
-  <div id="navbar" class="navbar fixed">
-    <div class="brand">
-      <a href="../index.html" class="brand-link">HIGHBUCKS<br>
-        <small>COFFEE</small>
-      </a>
-    </div>
-
-    <div class="navbar-m1">
-      <a class="nav-link " href="../index.html">trang chủ</a>
-      <div class=" nav-link dropdown">
-        thực đơn<span class="material-symbols-outlined">arrow_drop_down</span>
-        <div class="dropdown-content">
-          <a href="coffee.html">cafe</a>
-          <a href="main-dish.html">món chính</a>
-          <a href="drinks.html">đồ uống khác </a>
-          <a href="desserts.html">tráng miệng</a>
-          <a href="snack.html">đồ ăn vặt</a>
-        </div>
-      </div>
-      <a class="nav-link" href="service.html">dịch vụ</a>
-      <a class="nav-link" href="blog.html">blog</a>
-      <a class="nav-link activemenu" href="about.html">giới thiệu</a>
-      <a class="nav-link" href="contact.html">liên hệ</a>
-      <a class="nav-link" href="cart.html">
-        <span class="material-symbols-outlined">
-          shopping_cart
-        </span>
-      </a>
-    </div>
-  </div>
+  <?php include '../PHP/Menu.php' ?>
   <!--Banner-->
   <div class="banner">
     <h1>Về Chúng tôi</h1>
