@@ -22,6 +22,7 @@
       <a class="nav-link" href="../Page/blog.php">Blog</a>
       <a class="nav-link" href="../Page/about.php">Giới Thiệu</a>
       <a class="nav-link" href="../Page/contact.php">Liên Hệ</a>
+      <a class="nav-link" href="../PHP/Login.php">Tài khoản</a>
       <a class="nav-link" href="../Page/cart.php">
         <span class="material-symbols-outlined">
           shopping_cart
