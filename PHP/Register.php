@@ -74,7 +74,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <input type="number" name="phone" placeholder="Số điện thoại..." maxlength="11">
                     <label for="">Mật khẩu</label>
                     <div style="position: relative;"><input type="password" name="password" placeholder="Mật khẩu..."><span toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle-password"></span></div>
-                    <div style="display: flex; justify-items: center;"><button type="submit">Đăng ký</button></div>
+                    <div style="display: flex; justify-content: center;"><button type="submit">Đăng ký</button></div>
                 </form>
                     
                     <h4>Bạn đã có tài khoản? <a style=" text-decoration: none;" href="Login.php"><b style="font-size: 17px;">Đăng nhập</b></a></h4>

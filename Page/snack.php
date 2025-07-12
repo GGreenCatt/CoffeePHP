@@ -26,7 +26,12 @@
 
 <body>
   <!--Menu-->
-  <?php include '../PHP/Menu.php' ?>
+  <?php include_once '../PHP/Connect.php'?>
+  <?php 
+    include '../PHP/Menu.php';
+    $sql = "SELECT idsanpham, TenSanPham, GiaTien FROM sanpham WHERE PhanLoai = 'Đồ ăn vặt'";
+    $result = mysqli_query($conn, $sql);
+  ?>
   <!--Banner-->
   <div class="banner">
     <h1>đồ ăn vặt của chúng tôi</h1>
@@ -45,79 +50,24 @@
       </div>
     </div>
     <div class="foodbox">
-      <div class="col">
-        <div class="imgbox">
-          <div class="img" style="background-image: url(../Pic/anvat-1.jpg);"></div>
-        </div>
-        <div class="text">
-          <h3>Hạt dẻ</h3>
-          <p>Hạt dẻ thơm ngon chất lượng với nhiều hương vị</p>
-          <p class="price">10.000 VNĐ</p>
-          <p><a href="../Page/cart.html" class="addcart">Đặt Mua Hàng</a></p>
-        </div>
-      </div>
-
-      <div class="col">
-        <div class="imgbox">
-          <div class="img" style="background-image: url(../Pic/anvat-2.jpg);"></div>
-        </div>
-        <div class="text">
-          <h3>Khô gà</h3>
-          <p>Khô gà thơm ngon chất lượng với nhiều hương vị</p>
-          <p class="price">20.000 VNĐ</p>
-          <p><a href="../Page/cart.html" class="addcart">Đặt Mua Hàng</a></p>
-        </div>
-      </div>
-
-      <div class="col">
-        <div class="imgbox">
-          <div class="img" style="background-image: url(../Pic/anvat-9.jpg);"></div>
-        </div>
-        <div class="text">
-          <h3>Cơm cháy</h3>
-          <p>Cơm cháy thơm ngon chất lượng với nhiều hương vị</p>
-          <p class="price">20.000 VNĐ</p>
-          <p><a href="../Page/cart.html" class="addcart">Đặt Mua Hàng</a></p>
-        </div>
-      </div>
-    </div>
-
-    <div class="foodbox">
-      <div class="col">
-        <div class="imgbox">
-          <div class="img" style="background-image: url(../Pic/anvat-4.jpg);"></div>
-        </div>
-        <div class="text">
-          <h3>Khô heo</h3>
-          <p>Khô heo thơm ngon chất lượng với nhiều hương vị</p>
-          <p class="price">20.000 VNĐ</p>
-          <p><a href="../Page/cart.html" class="addcart">Đặt Mua Hàng</a></p>
-        </div>
-      </div>
-
-      <div class="col">
-        <div class="imgbox">
-          <div class="img" style="background-image: url(../Pic/anvat-5.jpg);"></div>
-        </div>
-        <div class="text">
-          <h3>Bánh tráng</h3>
-          <p>Bánh tráng thơm ngon chất lượng với nhiều hương vị</p>
-          <p class="price">15.000 VNĐ</p>
-          <p><a href="../Page/cart.html" class="addcart">Đặt Mua Hàng</a></p>
-        </div>
-      </div>
-
-      <div class="col">
-        <div class="imgbox">
-          <div class="img" style="background-image: url(../Pic/anvat-8.jpg);"></div>
-        </div>
-        <div class="text">
-          <h3>Bánh gạo</h3>
-          <p>Bánh gạo thơm ngon chất lượng với nhiều hương vị</p>
-          <p class="price">15.000 VNĐ</p>
-          <p><a href="../Page/cart.html" class="addcart">Đặt Mua Hàng</a></p>
-        </div>
-      </div>
+      <?php
+      if ($result->num_rows > 0) {
+        while ($row = $result->fetch_assoc()) {
+          echo
+          "<div class='col'>".
+          "<div class='imgbox'>".
+            "<div class='img' style='background-image: url(../Pic/".$row["idsanpham"].".jpg);'></div>".
+          "</div>".
+          "<div class='text'>".
+            "<h3>".$row["TenSanPham"]."</h3>".
+            "<p>Đồ ăn vặt thơm ngon chất lượng với nhiều hương vị</p>".
+            "<p class='price'>".$row["GiaTien"]." VNĐ</p>".
+            "<p><a href='../Page/cart.html' class='addcart'>Đặt Mua Hàng</a></p>".
+          "</div>".
+        "</div>";
+        }
+      }
+      ?>
 
 
     </div>

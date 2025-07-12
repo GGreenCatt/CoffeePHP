@@ -186,9 +186,10 @@ transform: translate(-50%, -50%);
     display: flex;
     justify-content: center;
     align-content: center;
+    flex-wrap: wrap;
   }
   .foodbox .col{
-    max-width: 25%;
+    max-width: 27%;
     position: relative;
     width: 100%;
     padding: 15px 15px;

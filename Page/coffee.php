@@ -26,7 +26,12 @@
 
 <body>
   <!--Menu-->
-  <?php include '../PHP/Menu.php' ?>
+  <?php include_once '../PHP/Connect.php'?>
+  <?php 
+    include '../PHP/Menu.php';
+    $sql = "SELECT idsanpham, TenSanPham, GiaTien FROM sanpham WHERE PhanLoai = 'Cà Phê'";
+    $result = mysqli_query($conn, $sql);
+  ?>
   <!--Banner-->
   <div class="banner">
     <h1>Cafe</h1>
@@ -46,101 +51,25 @@
       </div>
     </div>
     <div class="foodbox">
-      <div class="col">
-        <div class="imgbox">
-          <div class="img" style="background-image: url(../Pic/menu-1.jpg);"></div>
-        </div>
-        <div class="text">
-          <h3>Cà phê Capuccino</h3>
-          <p>Mỗi tách cà phê được làm ra bởi các barista chuyên nghiệp</p>
-          <p class="price">25.000 VNĐ</p>
-          <p><a href="../Page/cart.html" class="addcart">Đặt Mua Hàng</a></p>
-        </div>
-      </div>
+      <?php
+      if ($result->num_rows > 0) {
+        while ($row = $result->fetch_assoc()) {
+          echo
+          "<div class='col'>".
+          "<div class='imgbox'>".
+            "<div class='img' style='background-image: url(../Pic/".$row["idsanpham"].".jpg);'></div>".
+          "</div>".
+          "<div class='text'>".
+            "<h3>".$row["TenSanPham"]."</h3>".
+            "<p>Mỗi tách cà phê được làm ra bởi các barista chuyên nghiệp</p>".
+            "<p class='price'>".$row["GiaTien"]." VNĐ</p>".
+            "<p><a href='../Page/cart.html' class='addcart'>Đặt Mua Hàng</a></p>".
+          "</div>".
+        "</div>";
+        }
+      }
+      ?>
 
-      <div class="col">
-        <div class="imgbox">
-          <div class="img" style="background-image: url(../Pic/menu-2.jpg);"></div>
-        </div>
-        <div class="text">
-          <h3>Cà phê Espresso</h3>
-          <p>Mỗi tách cà phê được làm ra bởi các barista chuyên nghiệp</p>
-          <p class="price">25.000 VNĐ</p>
-          <p><a href="../Page/cart.html" class="addcart">Đặt Mua Hàng</a></p>
-        </div>
-      </div>
-
-      <div class="col">
-        <div class="imgbox">
-          <div class="img" style="background-image: url(../Pic/menu-5.jpg);"></div>
-        </div>
-        <div class="text">
-          <h3>Cà phê sữa đá</h3>
-          <p>Mỗi tách cà phê được làm ra bởi các barista chuyên nghiệp</p>
-          <p class="price">25.000 VNĐ</p>
-          <p><a href="../Page/cart.html" class="addcart">Đặt Mua Hàng</a></p>
-        </div>
-      </div>
-
-      <div class="col">
-        <div class="imgbox">
-          <div class="img" style="background-image: url(../Pic/menu-4.jpg);"></div>
-        </div>
-        <div class="text">
-          <h3>Cà phê Latte</h3>
-          <p>Mỗi tách cà phê được làm ra bởi các barista chuyên nghiệp</p>
-          <p class="price">25.000 VNĐ</p>
-          <p><a href="../Page/cart.html" class="addcart">Đặt Mua Hàng</a></p>
-        </div>
-      </div>
-
-            <div class="col">
-        <div class="imgbox">
-          <div class="img" style="background-image: url(../Pic/menu-6.jpg);"></div>
-        </div>
-        <div class="text">
-          <h3>Cà phê kem sữa</h3>
-          <p>Mỗi tách cà phê được làm ra bởi các barista chuyên nghiệp</p>
-          <p class="price">25.000 VNĐ</p>
-          <p><a href="../Page/cart.html" class="addcart">Đặt Mua Hàng</a></p>
-        </div>
-      </div>
-
-      <div class="col">
-        <div class="imgbox">
-          <div class="img" style="background-image: url(../Pic/menu-7.jpg);"></div>
-        </div>
-        <div class="text">
-          <h3>cà phê trứng</h3>
-          <p>Mỗi tách cà phê được làm ra bởi các barista chuyên nghiệp</p>
-          <p class="price">25.000 VNĐ</p>
-          <p><a href="../Page/cart.html" class="addcart">Đặt Mua Hàng</a></p>
-        </div>
-      </div>
-
-      <div class="col">
-        <div class="imgbox">
-          <div class="img" style="background-image: url(../Pic/menu-3.jpg);"></div>
-        </div>
-        <div class="text">
-          <h3>Cà phê muối</h3>
-          <p>Mỗi tách cà phê được làm ra bởi các barista chuyên nghiệp</p>
-          <p class="price">25.000 VNĐ</p>
-          <p><a href="../Page/cart.html" class="addcart">Đặt Mua Hàng</a></p>
-        </div>
-      </div>
-
-      <div class="col">
-        <div class="imgbox">
-          <div class="img" style="background-image: url(../Pic/menu-8.jpg);"></div>
-        </div>
-        <div class="text">
-          <h3>Cà phê kem</h3>
-          <p>Mỗi tách cà phê được làm ra bởi các barista chuyên nghiệp</p>
-          <p class="price">25.000 VNĐ</p>
-          <p><a href="../Page/cart.html" class="addcart">Đặt Mua Hàng</a></p>
-        </div>
-      </div>
     </div>
   </div>
   <!--Footer-->

@@ -26,7 +26,12 @@
 
 <body>
   <!--Menu-->
-  <?php include '../PHP/Menu.php' ?>
+  <?php include_once '../PHP/Connect.php'?>
+  <?php 
+    include '../PHP/Menu.php';
+    $sql = "SELECT idsanpham, TenSanPham, GiaTien FROM sanpham WHERE PhanLoai = 'Tráng miệng'";
+    $result = mysqli_query($conn, $sql);
+  ?>
   <!--Banner-->
   <div class="banner">
     <h1>Tráng miệng</h1>
@@ -45,103 +50,25 @@
       </div>
     </div>
     <div class="foodbox">
-      <div class="col">
-        <div class="imgbox">
-          <div class="img" style="background-image: url(../Pic/desserts-1.jpg);"></div>
-        </div>
-        <div class="text">
-          <h3>Pudding Dâu</h3>
-          <p>Những chiếc bánh ngọt ngào thích mắt với đẩy đủ hương vị</p>
-          <p class="price">15.000 VNĐ</p>
-          <p><a href="../Page/cart.html" class="addcart">Đặt Mua Hàng</a></p>
-        </div>
-      </div>
+      <?php
+      if ($result->num_rows > 0) {
+        while ($row = $result->fetch_assoc()) {
+          echo
+          "<div class='col'>".
+          "<div class='imgbox'>".
+            "<div class='img' style='background-image: url(../Pic/".$row["idsanpham"].".jpg);'></div>".
+          "</div>".
+          "<div class='text'>".
+            "<h3>".$row["TenSanPham"]."</h3>".
+            "<p>Những chiếc bánh ngọt ngào thích mắt với đẩy đủ hương vị</p>".
+            "<p class='price'>".$row["GiaTien"]." VNĐ</p>".
+            "<p><a href='../Page/cart.html' class='addcart'>Đặt Mua Hàng</a></p>".
+          "</div>".
+        "</div>";
+        }
+      }
+      ?>
 
-      <div class="col">
-        <div class="imgbox">
-          <div class="img" style="background-image: url(../Pic/desserts-2.jpg);"></div>
-        </div>
-        <div class="text">
-          <h3>Bánh chocolate</h3>
-          <p>Những chiếc bánh ngọt ngào thích mắt với đẩy đủ hương vị</p>
-          <p class="price">15.000 VNĐ</p>
-          <p><a href="../Page/cart.html" class="addcart">Đặt Mua Hàng</a></p>
-        </div>
-      </div>
-
-      <div class="col">
-        <div class="imgbox">
-          <div class="img" style="background-image: url(../Pic/desserts-3.jpg);"></div>
-        </div>
-        <div class="text">
-          <h3>bánh chanh leo</h3>
-          <p>Những chiếc bánh ngọt ngào thích mắt với đẩy đủ hương vị</p>
-          <p class="price">15.000 VNĐ</p>
-          <p><a href="../Page/cart.html" class="addcart">Đặt Mua Hàng</a></p>
-        </div>
-      </div>
-
-      <div class="col">
-        <div class="imgbox">
-          <div class="img" style="background-image: url(../Pic/desserts-4.jpg);"></div>
-        </div>
-        <div class="text">
-          <h3>bánh waffle dâu</h3>
-          <p>Những chiếc bánh ngọt ngào thích mắt với đẩy đủ hương vị</p>
-          <p class="price">15.000 VNĐ</p>
-          <p><a href="../Page/cart.html" class="addcart">Đặt Mua Hàng</a></p>
-        </div>
-      </div>
-    </div>
-
-    <div class="foodbox">
-      <div class="col">
-        <div class="imgbox">
-          <div class="img" style="background-image: url(../Pic/desserts-5.jpg);"></div>
-        </div>
-        <div class="text">
-          <h3>Bánh Cupcake</h3>
-          <p>Những chiếc bánh ngọt ngào thích mắt với đẩy đủ hương vị</p>
-          <p class="price">15.000 VNĐ</p>
-          <p><a href="../Page/cart.html" class="addcart">Đặt Mua Hàng</a></p>
-        </div>
-      </div>
-
-      <div class="col">
-        <div class="imgbox">
-          <div class="img" style="background-image: url(../Pic/desserts-6.jpg);"></div>
-        </div>
-        <div class="text">
-          <h3>bánh waffle mật ong</h3>
-          <p>Những chiếc bánh ngọt ngào thích mắt với đẩy đủ hương vị</p>
-          <p class="price">15.000 VNĐ</p>
-          <p><a href="../Page/cart.html" class="addcart">Đặt Mua Hàng</a></p>
-        </div>
-      </div>
-
-      <div class="col">
-        <div class="imgbox">
-          <div class="img" style="background-image: url(../Pic/desserts-7.jpg);"></div>
-        </div>
-        <div class="text">
-          <h3>Bánh chocolate kem</h3>
-          <p>Những chiếc bánh ngọt ngào thích mắt với đẩy đủ hương vị</p>
-          <p class="price">15.000 VNĐ</p>
-          <p><a href="../Page/cart.html" class="addcart">Đặt Mua Hàng</a></p>
-        </div>
-      </div>
-
-      <div class="col">
-        <div class="imgbox">
-          <div class="img" style="background-image: url(../Pic/desserts-8.jpg);"></div>
-        </div>
-        <div class="text">
-          <h3>Bánh chocolate chảy</h3>
-          <p>Những chiếc bánh ngọt ngào thích mắt với đẩy đủ hương vị</p>
-          <p class="price">15.000 VNĐ</p>
-          <p><a href="../Page/cart.html" class="addcart">Đặt Mua Hàng</a></p>
-        </div>
-      </div>
     </div>
   </div>
   <!--Footer-->

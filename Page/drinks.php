@@ -26,7 +26,12 @@
 
 <body>
   <!--Menu-->
-  <?php include '../PHP/Menu.php' ?>
+  <?php include_once '../PHP/Connect.php'?>
+  <?php 
+    include '../PHP/Menu.php';
+    $sql = "SELECT idsanpham, TenSanPham, GiaTien FROM sanpham WHERE PhanLoai = 'Đồ uống'";
+    $result = mysqli_query($conn, $sql);
+  ?>
   <!--Banner-->
   <div class="banner">
     <h1>Đồ uống</h1>
@@ -44,104 +49,25 @@
         <p>Đồ uống đầy màu sắc và hương vị được pha chế bởi các barista chuyên nghiệp</p>
       </div>
     </div>
-    <div class="foodbox">
-      <div class="col">
-        <div class="imgbox">
-          <div class="img" style="background-image: url(../Pic/drink-1.jpg);"></div>
-        </div>
-        <div class="text">
-          <h3>Nước dâu</h3>
-          <p>Đồ uống đầy màu sắc được pha chế bởi các barista chuyên nghiệp</p>
-          <p class="price">20.000 VNĐ</p>
-          <p><a href="../Page/cart.html" class="addcart">Đặt Mua Hàng</a></p>
-        </div>
-      </div>
-
-      <div class="col">
-        <div class="imgbox">
-          <div class="img" style="background-image: url(../Pic/drink-2.jpg);"></div>
-        </div>
-        <div class="text">
-          <h3>Nước cam</h3>
-          <p>Đồ uống đầy màu sắc được pha chế bởi các barista chuyên nghiệp</p>
-          <p class="price">20.000 VNĐ</p>
-          <p><a href="../Page/cart.html" class="addcart">Đặt Mua Hàng</a></p>
-        </div>
-      </div>
-
-      <div class="col">
-        <div class="imgbox">
-          <div class="img" style="background-image: url(../Pic/drink-3.jpg);"></div>
-        </div>
-        <div class="text">
-          <h3>Nước chanh leo</h3>
-          <p>Đồ uống đầy màu sắc được pha chế bởi các barista chuyên nghiệp</p>
-          <p class="price">20.000 VNĐ</p>
-          <p><a href="../Page/cart.html" class="addcart">Đặt Mua Hàng</a></p>
-        </div>
-      </div>
-
-      <div class="col">
-        <div class="imgbox">
-          <div class="img" style="background-image: url(../Pic/drink-4.jpg);"></div>
-        </div>
-        <div class="text">
-          <h3>Trà lipton</h3>
-          <p>Đồ uống đầy màu sắc được pha chế bởi các barista chuyên nghiệp</p>
-          <p class="price">20.000 VNĐ</p>
-          <p><a href="../Page/cart.html" class="addcart">Đặt Mua Hàng</a></p>
-        </div>
-      </div>
-    </div>
-
-    <div class="foodbox">
-      <div class="col">
-        <div class="imgbox">
-          <div class="img" style="background-image: url(../Pic/drink-5.jpg);"></div>
-        </div>
-        <div class="text">
-          <h3>Nước việt quất</h3>
-          <p>Đồ uống đầy màu sắc được pha chế bởi các barista chuyên nghiệp</p>
-          <p class="price">20.000 VNĐ</p>
-          <p><a href="../Page/cart.html" class="addcart">Đặt Mua Hàng</a></p>
-        </div>
-      </div>
-
-      <div class="col">
-        <div class="imgbox">
-          <div class="img" style="background-image: url(../Pic/drink-6.jpg);"></div>
-        </div>
-        <div class="text">
-          <h3>Trà quế</h3>
-          <p>Đồ uống đầy màu sắc được pha chế bởi các barista chuyên nghiệp</p>
-          <p class="price">20.000 VNĐ</p>
-          <p><a href="../Page/cart.html" class="addcart">Đặt Mua Hàng</a></p>
-        </div>
-      </div>
-
-      <div class="col">
-        <div class="imgbox">
-          <div class="img" style="background-image: url(../Pic/drink-7.jpg);"></div>
-        </div>
-        <div class="text">
-          <h3>Nước chanh</h3>
-          <p>Đồ uống đầy màu sắc được pha chế bởi các barista chuyên nghiệp</p>
-          <p class="price">20.000 VNĐ</p>
-          <p><a href="../Page/cart.html" class="addcart">Đặt Mua Hàng</a></p>
-        </div>
-      </div>
-
-      <div class="col">
-        <div class="imgbox">
-          <div class="img" style="background-image: url(../Pic/drink-8.jpg);"></div>
-        </div>
-        <div class="text">
-          <h3>Trà bạc hà chanh</h3>
-          <p>Đồ uống đầy màu sắc được pha chế bởi các barista chuyên nghiệp</p>
-          <p class="price">20.000 VNĐ</p>
-          <p><a href="../Page/cart.html" class="addcart">Đặt Mua Hàng</a></p>
-        </div>
-      </div>
+    <div class="foodbox" style="flex-wrap: wrap;">
+      <?php
+      if ($result->num_rows > 0) {
+        while ($row = $result->fetch_assoc()) {
+          echo
+          "<div class='col'>".
+          "<div class='imgbox'>".
+            "<div class='img' style='background-image: url(../Pic/".$row["idsanpham"].".jpg);'></div>".
+          "</div>".
+          "<div class='text'>".
+            "<h3>".$row["TenSanPham"]."</h3>".
+            "<p>Đồ uống đầy màu sắc được pha chế bởi các barista chuyên nghiệp</p>".
+            "<p class='price'>".$row["GiaTien"]." VNĐ</p>".
+            "<p><a href='../Page/cart.html' class='addcart'>Đặt Mua Hàng</a></p>".
+          "</div>".
+        "</div>";
+        }
+      }
+      ?>
     </div>
   </div>
   <!--Footer-->
