@@ -29,87 +29,59 @@
   <?php include '../PHP/Menu.php' ?>
   <!--Banner-->
   <div class="banner">
-    <h1>Thanh toán</h1>
+    <h1>Giỏ hàng</h1>
     <p>
       <a href="../index.html">Trang chủ</a>
-      <a href="cart.html" style="color: gray;">Thanh toán</a>
+      <a href="cart.html" style="color: gray;">Giỏ hàng</a>
     </p>
   </div>
-  <!--Checkout-->
-  <div class="checkout">
-    <div class="row">
-      <div class="col-75">
-        <div class="container">
-          <form action="">
-
-            <div class="row">
-              <div class="col-50">
-                <h3>Thông tin thanh toán</h3>
-                <label for="fname"><i class="fa fa-user"></i> Họ tên</label>
-                <input type="text" id="fname" name="firstname">
-                <label for="email"><i class="fa fa-envelope"></i> Email</label>
-                <input type="text" id="email" name="email">
-                <label for="adr"><i class="fa fa-address-card-o"></i> Địa chỉ</label>
-                <input type="text" id="adr" name="address">
-                <label for="city"><i class="fa fa-institution"></i> Thành phố</label>
-                <input type="text" id="city" name="city">
-
-                <div class="row">
-                  <div class="col-50">
-                    <label for="state">Quốc gia</label>
-                    <input type="text" id="state" name="state">
-                  </div>
-                  <div class="col-50">
-                    <label for="zip">Mã số thuế</label>
-                    <input type="text" id="zip" name="zip">
-                  </div>
-                </div>
-              </div>
-
-              <div class="col-50">
-                <h3>Thanh toán</h3>
-
-                <label for="cname">Tên chủ thẻ</label>
-                <input type="text" id="cname" name="cardname">
-                <label for="ccnum">Mã thẻ</label>
-                <input type="text" id="ccnum" name="cardnumber">
-                <label for="expmonth">Tháng hết hạn</label>
-                <input type="text" id="expmonth" name="expmonth">
-                <div class="row">
-                  <div class="col-50">
-                    <label for="expyear">Năm hết hạn</label>
-                    <input type="text" id="expyear" name="expyear">
-                  </div>
-                  <div class="col-50">
-                    <label for="cvv">Mã CVV</label>
-                    <input type="text" id="cvv" name="cvv">
-                  </div>
-                </div>
-              </div>
-
-            </div>
-            <label>
-              <input type="checkbox" checked="checked" name="sameadr"> Giao hàng theo địa chỉ hóa đơn
-            </label>
-            <input type="submit" value="Hoàn tất thanh toán" class="btn">
-          </form>
-        </div>
-      </div>
-      <div class="col-25">
-        <div class="container">
-          <h4>Giỏ hàng <span class="price" style="color:black"><i class="fa fa-shopping-cart" style="color: white;"></i>
-              <b>4</b></span></h4>
-          <p><a href="#">Cà Phê CAPUCCINO</a> <span class="price">20.000 VNĐ</span></p>
-          <p><a href="#">Thịt Bò KOBE</a> <span class="price">100.000 VNĐ</span></p>
-          <p><a href="#">Nước Cam</a> <span class="price">20.000 VNĐ</span></p>
-          <p><a href="#">Nước Chanh Leo</a> <span class="price">20.000 VNĐ</span></p>
-          <p><a href="#">Bánh Chocolate</a> <span class="price">15.000 VNĐ</span></p>
-          <p><a href="#">Hạt Hướng Dương</a> <span class="price">10.000 VNĐ</span></p>
-          <hr>
-          <p>Total <span class="price" style="color:black"><b>185.000 VNĐ</b></span></p>
-        </div>
-      </div>
+  <!--Cart-->
+  <div class="cart">
+    <div class="cart_list">
+        <table>
+            <tr>
+                <th style="width: 9%;">&nbsp</th>
+                <th style="width: 19%;">&nbsp</th>
+                <th>Sản phẩm</th>
+                <th>Giá</th>
+                <th>Số lượng</th>
+                <th style="width: 15%;">Thành tiền</th>
+            </tr>
+            <tr>
+                <td>X</td>
+                <td>Anh</td>
+                <td>aoihfoawhfoiiawawdaw</td>
+                <td>50K</td>
+                <td style="color: goldenrod;"> 1 </td>
+                <td>50K</td>
+            </tr>
+        </table>
     </div>
+        <div class="cart_total">
+            <div class="box">
+            <h2 style="color: white;">Tổng tiền</h2>
+            <table>
+                <tr>
+                    <td>Tạm tính:</td>
+                    <td>50.000VNĐ</td>
+                </tr>
+                <tr>
+                    <td>Phí ship:</td>
+                    <td>30.000VNĐ</td>
+                </tr>
+                <tr>
+                    <td>Giảm giá:</td>
+                    <td>10.000VNĐ</td>
+                </tr>
+                <tr>
+                    <td style="border-top: 1px solid gray;">Tổng cộng:</td>
+                    <td style="border-top: 1px solid gray; color: goldenrod;">70.000VNĐ</td>
+                </tr>
+            </table>
+            </div>
+
+            <button> Tiến hành thanh toán</button>
+        </div>
   </div>
   <!--Footer-->
   <div class="footer">
