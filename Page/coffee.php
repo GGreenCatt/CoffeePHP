@@ -22,6 +22,12 @@
   <title>HIGHBUCKS</title>
   <link rel="icon" type="image/x-icon" href="../Pic/Favicon.png">
   <link rel="stylesheet" href="../Css/coffee.css">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+   <style>
+      .swal2-container {
+        z-index: 999;
+      }
+  </style>
 </head>
 
 <body>
@@ -63,7 +69,7 @@
             "<h3>".$row["TenSanPham"]."</h3>".
             "<p>Mỗi tách cà phê được làm ra bởi các barista chuyên nghiệp</p>".
             "<p class='price'>".$row["GiaTien"]." VNĐ</p>".
-            "<p><a href='../Page/cart.html' class='addcart'>Đặt Mua Hàng</a></p>".
+            "<p><button class='addcart' data-id=".$row['idsanpham'].">Đặt Mua Hàng</button></p>".
           "</div>".
         "</div>";
         }
@@ -161,6 +167,56 @@
       $('#grid').click(function (event) { event.preventDefault(); $('#products .item').removeClass('list-group-item'); $('#products .item').addClass('grid-group-item'); });
     });
   </script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const addToCartButtons = document.querySelectorAll('.addcart');
+
+        addToCartButtons.forEach(button => {
+            button.addEventListener('click', function (event) {
+                event.preventDefault();
+                const productId = this.dataset.id;
+
+                // Gửi yêu cầu AJAX
+                fetch('../PHP/add_to_cart.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    body: 'id=' + productId
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        // Cập nhật số lượng trên icon giỏ hàng
+                        document.getElementById('cart-item-count').textContent = data.cart_count;
+                        document.getElementById('cart-item-count-fixed').textContent = data.cart_count;
+
+                        // Hiển thị thông báo thành công
+                        Swal.fire({
+                            toast: true,
+                            position: 'bottom-end',
+                            icon: 'success',
+                            title: 'Đã thêm vào giỏ hàng!',
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
+                    } else {
+                        // Hiển thị thông báo lỗi
+                        Swal.fire({
+                            toast: true,
+                            position: 'top-end',
+                            icon: 'error',
+                            title: 'Thêm thất bại!',
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
+                    }
+                })
+                .catch(error => console.error('Error:', error));
+            });
+        });
+    });
+    </script>
 </body>
 
 </html>

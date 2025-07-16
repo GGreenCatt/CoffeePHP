@@ -1,18 +1,27 @@
-<style>
-    /* XÓA hoặc THAY THẾ các đoạn CSS .dropdown-content và .dropdown-content a cũ bằng đoạn này */
+<?php
+// Bắt đầu session nếu chưa có
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
 
-/* ==== DROPDOWN STYLES (UPDATED) ==== */
-
-/* Khung chính của dropdown */
-.dropdown-content {
+// Tính tổng số lượng sản phẩm trong giỏ hàng
+$cart_item_count = 0;
+if (!empty($_SESSION['cart'])) {
+    foreach ($_SESSION['cart'] as $item) {
+        $cart_item_count += $item['soluong'];
+    }
+}
+?>
+  <style> 
+  .dropdown-content {
   display: none;
   position: absolute;
-  background-color: #151111;
+  background-color: black; /* Nền trắng sạch sẽ */
   min-width: 230px; /* Tăng độ rộng một chút */
   box-shadow: 0px 10px 25px 0px rgba(0, 0, 0, 0.1); /* Hiệu ứng đổ bóng mềm mại hơn */
   z-index: 1;
   border-radius: 8px; /* Bo tròn các góc */
-  border: 1px solid #c49a6c   ; /* Đường viền rất nhẹ */
+  border: 1px solid #f0f0f0; /* Đường viền rất nhẹ */
   overflow: hidden; /* Đảm bảo nội dung tuân thủ bo tròn góc */
 }
 
@@ -21,7 +30,7 @@
   padding: 16px 20px;
   color: goldenrod;
   text-align: left; /* Căn lề trái cho dễ đọc tên và sđt */
-  border-bottom: 1px solid #c49a6c; /* Đường kẻ ngăn cách */
+  border-bottom: 1px solid #f0f0f0; /* Đường kẻ ngăn cách */
   line-height: 1.4;
 }
 
@@ -37,7 +46,7 @@
 
 /* Các liên kết trong dropdown */
 .dropdown-content a {
-  color: goldenrod; /* Màu chữ tối hơn */
+  color: white; /* Màu chữ tối hơn */
   padding: 14px 20px;
   text-decoration: none;
   display: block;
@@ -57,13 +66,7 @@
 .dropdown:hover .dropdown-content {
   display: block;
 }
-</style>
-
-<?php
-if (session_status() == PHP_SESSION_NONE) {
-    session_start();
-}
-?>
+  </style>
   <div class="navbar">
     <div class="brand">
       <a href="index.php" class="brand-link">HIGHBUCKS<br>
@@ -72,40 +75,41 @@ if (session_status() == PHP_SESSION_NONE) {
     </div>
 
     <div class="navbar-m1">
-      <a class="nav-link activemenu" href="index.php">Trang Chủ</a>
+      <a class="nav-link activemenu" href="../Page/index.php">Trang Chủ</a>
       <div class=" nav-link dropdown">
         Thực Đơn<span class="material-symbols-outlined">arrow_drop_down</span>
         <div class="dropdown-content">
-          <a href="coffee.php">Cafe</a>
-          <a href="drinks.php">Đồ Uống Khác</a>
-          <a href="desserts.php">Tráng Miệng</a>
-          <a href="snack.php">Đồ Ăn Vặt</a>
+          <a href="../Page/coffee.php">Cafe</a>
+          <a href="../Page/main-dish.php">Món Chính</a>
+          <a href="../Page/drinks.php">Đồ Uống Khác</a>
+          <a href="../Page/desserts.php">Tráng Miệng</a>
+          <a href="../Page/snack.php">Đồ Ăn Vặt</a>
         </div>
       </div>
-      <a class="nav-link" href="service.php">Dịch Vụ</a>
-      <a class="nav-link" href="blog.php">Blog</a>
-      <a class="nav-link" href="about.php">Giới Thiệu</a>
-      <a class="nav-link" href="contact.php">Liên Hệ</a>
-
+      <a class="nav-link" href="../Page/service.php">Dịch Vụ</a>
+      <a class="nav-link" href="../Page/blog.php">Blog</a>
+      <a class="nav-link" href="../Page/about.php">Giới Thiệu</a>
+      <a class="nav-link" href="../Page/contact.php">Liên Hệ</a>
       <?php if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true): ?>
-        <div class="nav-link dropdown">
-            Tài khoản<span class="material-symbols-outlined">arrow_drop_down</span>
-            <div class="dropdown-content">
-                <div class="dropdown-user-info">
-                    <strong><?php echo htmlspecialchars($_SESSION['hoten']); ?></strong><br>
-                    <small><?php echo htmlspecialchars($_SESSION['phone']); ?></small>
+            <div class=" nav-link dropdown">
+                Tài khoản<span class="material-symbols-outlined">arrow_drop_down</span>
+                <div class="dropdown-content">
+                    <div class="dropdown-user-info">
+                        <strong><?php echo htmlspecialchars($_SESSION['hoten']); ?></strong><br>
+                        <small><?php echo htmlspecialchars($_SESSION['phone']); ?></small>
+                    </div>
+                    <a href="../Page/update_profile.php">Cập nhật thông tin</a>
+                    <a href="../PHP/Logout.php">Đăng xuất</a>
                 </div>
-                <a href="../Page/update_profile.php">Cập nhật thông tin</a>
-                <a href="../PHP/Logout.php">Đăng xuất</a>
             </div>
-        </div>
       <?php else: ?>
           <a class="nav-link" href="../PHP/Login.php">Tài khoản</a>
       <?php endif; ?>
-      <a class="nav-link" href="cart2.php">
+      <a class="nav-link" href="../Page/cart.php" id="cart-icon-wrapper">
         <span class="material-symbols-outlined">
           shopping_cart
         </span>
+        <span id="cart-item-count" class="cart-count"><?php echo $cart_item_count; ?></span>
       </a>
     </div>
   </div>
@@ -117,40 +121,41 @@ if (session_status() == PHP_SESSION_NONE) {
     </div>
 
     <div class="navbar-m1">
-      <a class="nav-link activemenu" href="index.php">Trang Chủ</a>
+      <a class="nav-link activemenu" href="../Page/index.php">Trang Chủ</a>
       <div class=" nav-link dropdown">
         Thực Đơn<span class="material-symbols-outlined">arrow_drop_down</span>
         <div class="dropdown-content">
-          <a href="coffee.php">Cafe</a>
-          <a href="drinks.php">Đồ Uống Khác</a>
-          <a href="desserts.php">Tráng Miệng</a>
-          <a href="snack.php">Đồ Ăn Vặt</a>
+          <a href="../Page/coffee.php">Cafe</a>
+          <a href="../Page/main-dish.php">Món Chính</a>
+          <a href="../Page/drinks.php">Đồ Uống Khác</a>
+          <a href="../Page/desserts.php">Tráng Miệng</a>
+          <a href="../Page/snack.php">Đồ Ăn Vặt</a>
         </div>
       </div>
-      <a class="nav-link" href="service.php">Dịch Vụ</a>
-      <a class="nav-link" href="blog.php">Blog</a>
-      <a class="nav-link" href="about.php">Giới Thiệu</a>
-      <a class="nav-link" href="contact.php">Liên Hệ</a>
-      
+      <a class="nav-link" href="../Page/service.php">Dịch Vụ</a>
+      <a class="nav-link" href="../Page/blog.php">Blog</a>
+      <a class="nav-link" href="../Page/about.php">Giới Thiệu</a>
+      <a class="nav-link" href="../Page/contact.php">Liên Hệ</a>
       <?php if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true): ?>
-        <div class="nav-link dropdown">
-            Tài khoản<span class="material-symbols-outlined">arrow_drop_down</span>
-            <div class="dropdown-content">
-                <div class="dropdown-user-info">
-                    <strong><?php echo htmlspecialchars($_SESSION['hoten']); ?></strong><br>
-                    <small><?php echo htmlspecialchars($_SESSION['phone']); ?></small>
+             <div class=" nav-link dropdown">
+                Tài khoản<span class="material-symbols-outlined">arrow_drop_down</span>
+                <div class="dropdown-content">
+                    <div class="dropdown-user-info">
+                        <strong><?php echo htmlspecialchars($_SESSION['hoten']); ?></strong><br>
+                        <small><?php echo htmlspecialchars($_SESSION['phone']); ?></small>
+                    </div>
+                    <a href="../Page/update_profile.php">Cập nhật thông tin</a>
+                    <a href="../PHP/Logout.php">Đăng xuất</a>
                 </div>
-                <a href="../Page/update_profile.php">Cập nhật thông tin</a>
-                <a href="../PHP/Logout.php">Đăng xuất</a>
             </div>
-        </div>
       <?php else: ?>
           <a class="nav-link" href="../PHP/Login.php">Tài khoản</a>
       <?php endif; ?>
-      <a class="nav-link" href="cart2.php">
+      <a class="nav-link" href="../Page/cart.php" id="cart-icon-wrapper-fixed">
         <span class="material-symbols-outlined">
           shopping_cart
         </span>
+        <span id="cart-item-count-fixed" class="cart-count"><?php echo $cart_item_count; ?></span>
       </a>
     </div>
   </div>

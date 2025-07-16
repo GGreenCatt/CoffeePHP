@@ -1,6 +1,9 @@
+<?php
+// Bắt đầu session ở đầu tệp để có thể truy cập biến $_SESSION
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <!--Font-->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -21,6 +24,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>HIGHBUCKS</title>
   <link rel="icon" type="image/x-icon" href="../Pic/Favicon.png">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 <body>
@@ -484,6 +488,36 @@
     </div>
     <div class="copyright">Copyright © 2023 Dung. All rights reserved.</div>
   </div>
+<?php
+  // Kiểm tra xem có thông báo đặt hàng thành công không
+  if (isset($_SESSION['order_success'])) {
+      $message = $_SESSION['order_success'];
+      
+      // Hiển thị thông báo bằng SweetAlert dạng toast (thông báo góc màn hình)
+      echo "
+      <script>
+        const Toast = Swal.mixin({
+          toast: true,
+          position: 'cencer',
+          showConfirmButton: false,
+          timer: 3000,
+          timerProgressBar: true,
+          didOpen: (toast) => {
+            toast.onmouseenter = Swal.stopTimer;
+            toast.onmouseleave = Swal.resumeTimer;
+          }
+        });
+        Toast.fire({
+          icon: 'success',
+          title: '" . addslashes($message) . "'
+        });
+      </script>
+      ";
+      
+      // Xóa thông báo khỏi session để không hiển thị lại khi tải lại trang
+      unset($_SESSION['order_success']);
+  }
+  ?>
   <script>
     /*Hiệu ứng chuyển ảnh Banner tự động*/
     let slideIndex = 0;

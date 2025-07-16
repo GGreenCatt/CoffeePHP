@@ -394,7 +394,6 @@ transform: translate(-50%, -50%);
     th{padding: 23px 0;}
   }
   .cart_total{
-    float: right;
     margin-top: 40px;
     display: inline-block;
     h2{margin-bottom: 5px;}
@@ -406,3 +405,28 @@ transform: translate(-50%, -50%);
     border: 1px solid gray;
     padding: 10px;
   }
+  .cart-item-image{
+    height: 120px; width: 100px;
+  }
+  .quantity-input{
+    background-color: rgba(37,37,36,255);
+    width: 100px;
+    padding: 10px 10px;
+    text-align: center;
+    font-size: 17px;
+    font-weight: bold;
+    border: 1px solid goldenrod;
+    color: goldenrod;
+  }
+  input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+input[type="number"] {
+    -moz-appearance: textfield;
+}
+.empty-cart-message{
+  font-size: larger;
+  color: goldenrod;
+}
