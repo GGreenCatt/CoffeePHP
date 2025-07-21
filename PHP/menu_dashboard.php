@@ -75,21 +75,10 @@ if (!empty($_SESSION['cart'])) {
     </div>
 
     <div class="navbar-m1">
-      <a class="nav-link activemenu" href="../Page/index.php">Trang Chủ</a>
-      <div class=" nav-link dropdown">
-        Thực Đơn<span class="material-symbols-outlined">arrow_drop_down</span>
-        <div class="dropdown-content">
-          <a href="../Page/coffee.php">Cafe</a>
-          <a href="../Page/main-dish.php">Món Chính</a>
-          <a href="../Page/drinks.php">Đồ Uống Khác</a>
-          <a href="../Page/desserts.php">Tráng Miệng</a>
-          <a href="../Page/snack.php">Đồ Ăn Vặt</a>
-        </div>
-      </div>
-      <a class="nav-link" href="../Page/service.php">Dịch Vụ</a>
-      <a class="nav-link" href="../Page/blog.php">Blog</a>
-      <a class="nav-link" href="../Page/about.php">Giới Thiệu</a>
-      <a class="nav-link" href="../Page/contact.php">Liên Hệ</a>
+      <a class="nav-link activemenu" href="../Page/index.php">Thống kê</a>
+      <a class="nav-link" href="../Page/service.php">Kho</a>
+      <a class="nav-link" href="../Page/blog.php">Đơn đặt</a>
+      <a class="nav-link" href="../Page/about.php">Khách hàng</a>
       <?php if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true): ?>
             <div class=" nav-link dropdown">
                 Tài khoản<span class="material-symbols-outlined">arrow_drop_down</span>
@@ -99,18 +88,12 @@ if (!empty($_SESSION['cart'])) {
                         <small><?php echo htmlspecialchars($_SESSION['phone']); ?></small>
                     </div>
                     <a href="../Page/update_profile.php">Cập nhật thông tin</a>
-                    <a href="../Page/order_history.php">Lịch sử đặt hàng</a>
                     <a href="../PHP/Logout.php">Đăng xuất</a>
                 </div>
             </div>
       <?php else: ?>
           <a class="nav-link" href="../PHP/Login.php">Tài khoản</a>
       <?php endif; ?>
-      <a class="nav-link" href="../Page/cart.php" id="cart-icon-wrapper">
-        <span class="material-symbols-outlined">
-          shopping_cart
-        </span>
-        <span id="cart-item-count" class="cart-count"><?php echo $cart_item_count; ?></span>
       </a>
     </div>
   </div>

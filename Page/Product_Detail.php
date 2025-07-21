@@ -1,3 +1,32 @@
+<?php
+session_start();
+include_once("../PHP/Connect.php");
+
+// Kiểm tra xem ID sản phẩm có được truyền qua URL không
+if (!isset($_GET['id']) || empty($_GET['id'])) {
+    // Nếu không có ID, chuyển hướng về trang chủ
+    header('Location: index.php');
+    exit();
+}
+
+$id_san_pham = intval($_GET['id']);
+
+// Truy vấn cơ sở dữ liệu để lấy thông tin chi tiết của sản phẩm
+$sql = "SELECT idSanpham, TenSanPham, GiaTien FROM sanpham WHERE idsanpham = ?";
+$stmt = $conn->prepare($sql);
+$stmt->bind_param("i", $id_san_pham);
+$stmt->execute();
+$result = $stmt->get_result();
+
+// Kiểm tra xem sản phẩm có tồn tại không
+if ($result->num_rows === 0) {
+    // Nếu sản phẩm không tồn tại, hiển thị thông báo lỗi
+    echo "Sản phẩm không tồn tại.";
+    exit();
+}
+
+$product = $result->fetch_assoc();
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -20,6 +49,7 @@
   <title>HIGHBUCKS</title>
   <link rel="icon" type="image/x-icon" href="../Pic/Favicon.png">
   <link rel="stylesheet" href="../Css/service.css">
+   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 <body>
@@ -37,11 +67,11 @@
   <div class="product_detail">
     <div class="box">
         <div class="col">
-            <img src="../Pic/menu-1.jpg" alt="" width="543px" height="538px">
+            <img src="../Pic/<?php echo $product["idSanpham"]; ?>.jpg" alt="" width="543px" height="538px">
         </div>
         <div class="col">
-            <h1>Cà phê Capuccino</h1>
-            <h2 style="color: goldenrod;">40.000VNĐ</h2>
+            <h1><?php echo $product["TenSanPham"] ?></h1>
+            <h2 style="color: goldenrod;"><?php echo number_format($product['GiaTien'], 0, ',', '.'); ?> VNĐ</h2>
             <p>A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth.
 
 On her way she met a copy. The copy warned the Little Blind Text, that where it came from it would have been rewritten a thousand times and everything that was left from its origin would be the word "and" and the Little Blind Text should turn around and return to its own, safe country. But nothing the copy said could convince her and so it didn’t take long until a few insidious Copy Writers ambushed her, made her drunk with Longe and Parole and dragged her into their agency, where they abused her for their.</p>
@@ -52,84 +82,13 @@ On her way she met a copy. The copy warned the Little Blind Text, that where it 
                 <option value=""> L</option>
             </select>
             <label for="">Số lượng</label>
-            <input type="number" value="1">
-            <button>Thêm vào giỏ</button>
+            <input type="number" value="1" id="quantity" name="soluong" min="1">
+            <button type="button" class="addcart" data-id="<?php echo $id_san_pham; ?>">Thêm vào giỏ hàng</button>
         </div>
     </div>
   </div>
   <!--Footer-->
-  <div class="footer">
-    <div class="contaner">
-      <div class="row">
-        <div class="content">
-          <div class="text">
-            <h2>về chúng tôi</h2>
-            <p>Highbucks Coffee, với sứ mệnh tạo ra những tách cà phê đầy nhiệt huyết bởi các barista, giúp người uống
-              thưởng thức được tinh hoa của cà phê</p>
-          </div>
-          <audio src="../Audio/chill.mp3" loop autoplay controls></audio>
-          <a href="https://www.facebook.com" class="fa fa-facebook"></a>
-          <a href="https://www.youtube.com" class="fa fa-youtube"></a>
-          <a href="https://www.instagram.com" class="fa fa-instagram"></a>
-        </div>
-
-        <div class="content">
-          <div class="text">
-            <h2>blog gần đây</h2>
-            <div class="block-01">
-              <a class="block-img" style="background-image: url(../Pic/image_1.jpg);"></a>
-              <div class="block-text">
-                Cách pha một tách cà phê chuẩn barista
-              </div>
-            </div>
-
-            <div class="block-01">
-              <a class="block-img" style="background-image: url(../Pic/image_2.jpg);"></a>
-              <div class="block-text">
-                Giá trị tinh hoa của cà phê là gì?
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="content">
-          <div class="text">
-            <h2>Dịch vụ</h2>
-            <div class="p-01">
-              <p>Nấu</p>
-              <p>Vận chuyển</p>
-              <p>Chất lượng</p>
-              <p>Trộn</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="content">
-          <div class="text">
-            <h2>Thông tin liên hệ</h2>
-            <div class="block-02">
-              <ul>
-                <li><span class="icon material-symbols-outlined">pin_drop</span>
-                  <span class="text">68 Nguyễn Chí Thanh,Láng Thượng,Đống Đa,Hà Nội</span>
-                </li>
-
-                <li><span class="icon material-symbols-outlined">
-                    call
-                  </span>
-                  <span class="text">+84 092 4482 940</span>
-                </li>
-
-                <li><span class="icon material-symbols-outlined">mail</span>
-                  <span class="text">highbucks@gmail.com</span>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="copyright">Copyright © 2023 Dung. All rights reserved.</div>
-  </div>
+  <?php include_once("../PHP/Footer.php") ?>
 
   <script>
     /*menu scroll*/
@@ -142,6 +101,39 @@ On her way she met a copy. The copy warned the Little Blind Text, that where it 
       }
     }
   </script>
+  <script>
+    // Script AJAX để thêm vào giỏ hàng (tương tự trang coffee.php)
+    document.querySelector('.addcart').addEventListener('click', function(event) {
+        event.preventDefault();
+        const productId = this.dataset.id;
+        const quantity = document.getElementById('quantity').value;
+
+        // Tạo form data để gửi cả id và số lượng
+        const formData = new FormData();
+        formData.append('id', productId);
+        formData.append('soluong', quantity);
+
+        fetch('../PHP/add_to_cart.php', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                document.getElementById('cart-item-count').textContent = data.cart_count;
+                document.getElementById('cart-item-count-fixed').textContent = data.cart_count;
+                Swal.fire({
+                    toast: true,
+                    position: 'bottom-end',
+                    icon: 'success',
+                    title: 'Đã thêm vào giỏ hàng!',
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+            }
+        });
+    });
+    </script>
 </body>
 
 </html>

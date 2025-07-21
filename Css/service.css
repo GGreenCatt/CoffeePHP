@@ -393,3 +393,8 @@ transform: translate(-50%, -50%);
 .col button{
  background-color:rgba(196,154,98,255); padding: 15px 40px; font-size: medium; font-weight: bold; margin-top: 10px; outline: none; border: none;
 }
+.col button:hover{
+  background: transparent;
+  color: goldenrod;
+  border: 1px solid goldenrod;
+}

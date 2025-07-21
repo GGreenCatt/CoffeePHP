@@ -40,7 +40,7 @@
               <p>Nấu</p>
               <p>Vận chuyển</p>
               <p>Chất lượng</p>
-              <p>Trộn</p>
+              <a style="text-decoration: none;" class="nav-link" href="../Page/order_history.php">Tra Cứu Đơn Hàng</a>
             </div>
           </div>
         </div>

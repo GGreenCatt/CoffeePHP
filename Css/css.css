@@ -958,3 +958,52 @@ input[type="number"] {
             color: #721c24;
             border-color: #f5c6cb;
         }
+.dashboard{
+  padding: 150px 100px 0 100px;
+  color: goldenrod;
+  >h1{margin-bottom: 30px;}
+}
+.dashboard .box{
+  display: flex;
+  margin: 50px 0;
+  justify-content: space-between;
+}
+.dashboard .box .card{
+  position: relative;
+  width: 23%;
+  height: 180px;
+  border: 1px solid goldenrod;
+  padding: 20px 30px;
+  background-color: gray;
+  color: white;
+  border-radius: 10px;
+  >h1{margin-bottom: 5px; font-weight: 500;}
+  >h3{text-transform: uppercase; font-weight: 100;}
+  overflow: hidden;
+}
+.material-symbols-outlined{
+  position: absolute;
+  bottom: -60px; right: -45px;
+  font-size: 200px;
+  color: black;
+  opacity: 0.1;
+}
+.box .char{
+  width: 31%;
+  border: 1px solid goldenrod;
+  height: 440px;
+  overflow: hidden;
+}
+.tbdonhang{
+  border-collapse: collapse;
+  border:  1px solid goldenrod;
+  width: 100%;
+  text-align: left;
+  margin-top: 30px;
+  margin-bottom: 30px;
+  td,th{padding: 30px 10px;border-bottom: 1px solid goldenrod;}
+}
+.tbdonhang tr:first-child{
+   background-color: rgba(196,154,98,255);
+   color: white;
+}

@@ -268,25 +268,25 @@ session_start();
           <div class="rowright">
             <div class="colum">
               <div class="galley">
-                <span class="img" style="background-image: url(../Pic/menu-1.jpg);">
+                <span class="img" style="background-image: url(../Pic/1.jpg);">
                 </span>
               </div>
             </div>
             <div class="colum">
               <div class="galley">
-                <span class="img mt-4" style="background-image: url(../Pic/menu-2.jpg);">
+                <span class="img mt-4" style="background-image: url(../Pic/2.jpg);">
                 </span>
               </div>
             </div>
             <div class="colum">
               <div class="galley">
-                <span class="img" style="background-image: url(../Pic/menu-3.jpg);">
+                <span class="img" style="background-image: url(../Pic/3.jpg);">
                 </span>
               </div>
             </div>
             <div class="colum">
               <div class="galley">
-                <span class="img mt-4" style="background-image: url(../Pic/menu-4.jpg);">
+                <span class="img mt-4" style="background-image: url(../Pic/4.jpg);">
                 </span>
               </div>
             </div>
@@ -367,7 +367,7 @@ session_start();
     <div class="foodbox">
       <div class="col">
         <div class="imgbox">
-          <div class="img" style="background-image: url(../Pic/menu-1.jpg);"></div>
+          <div class="img" style="background-image: url(../Pic/1.jpg);"></div>
         </div>
         <div class="text">
           <h3>Cà phê Capuccino</h3>
@@ -379,7 +379,7 @@ session_start();
 
       <div class="col">
         <div class="imgbox">
-          <div class="img" style="background-image: url(../Pic/menu-2.jpg);"></div>
+          <div class="img" style="background-image: url(../Pic/2.jpg);"></div>
         </div>
         <div class="text">
           <h3>Cà phê Espresso</h3>
@@ -391,7 +391,7 @@ session_start();
 
       <div class="col">
         <div class="imgbox">
-          <div class="img" style="background-image: url(../Pic/menu-3.jpg);"></div>
+          <div class="img" style="background-image: url(../Pic/3.jpg);"></div>
         </div>
         <div class="text">
           <h3>Cà phê sữa đá</h3>
@@ -403,7 +403,7 @@ session_start();
 
       <div class="col">
         <div class="imgbox">
-          <div class="img" style="background-image: url(../Pic/menu-4.jpg);"></div>
+          <div class="img" style="background-image: url(../Pic/4.jpg);"></div>
         </div>
         <div class="text">
           <h3>Cà phê Latte</h3>
@@ -416,78 +416,7 @@ session_start();
   </div>
 
   <!------------------------------Footer---------------------------------->
-  <div class="footer">
-    <div class="contaner">
-      <div class="row">
-        <div class="content">
-          <div class="text">
-            <h2>về chúng tôi</h2>
-            <p>Highbucks Coffee, với sứ mệnh tạo ra những tách cà phê đầy nhiệt huyết bởi các barista, giúp người uống
-              thưởng thức được tinh hoa của cà phê</p>
-          </div>
-          <audio src="../Audio/chill.mp3" loop autoplay controls></audio>
-          <a href="https://www.facebook.com" class="fa fa-facebook"></a>
-          <a href="https://www.youtube.com" class="fa fa-youtube"></a>
-          <a href="https://www.instagram.com" class="fa fa-instagram"></a>
-        </div>
-
-        <div class="content">
-          <div class="text">
-            <h2>blog gần đây</h2>
-            <div class="block-01">
-              <a class="block-img" style="background-image: url(../Pic/image_1.jpg);"></a>
-              <div class="block-text">
-                Cách pha một tách cà phê chuẩn barista
-              </div>
-            </div>
-
-            <div class="block-01">
-              <a class="block-img" style="background-image: url(../Pic/image_2.jpg);"></a>
-              <div class="block-text">
-                Giá trị tinh hoa của cà phê là gì?
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="content">
-          <div class="text">
-            <h2>Dịch vụ</h2>
-            <div class="p-01">
-              <p>Nấu</p>
-              <p>Vận chuyển</p>
-              <p>Chất lượng</p>
-              <p>Trộn</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="content">
-          <div class="text">
-            <h2>Thông tin liên hệ</h2>
-            <div class="block-02">
-              <ul>
-                <li><span class="icon material-symbols-outlined">pin_drop</span>
-                  <span class="text">68 Nguyễn Chí Thanh,Láng Thượng,Đống Đa,Hà Nội</span>
-                </li>
-
-                <li><span class="icon material-symbols-outlined">
-                    call
-                  </span>
-                  <span class="text">+84 092 4482 940</span>
-                </li>
-
-                <li><span class="icon material-symbols-outlined">mail</span>
-                  <span class="text">highbucks@gmail.com</span>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="copyright">Copyright © 2023 Dung. All rights reserved.</div>
-  </div>
+  <?php include_once("../PHP/Footer.php") ?>
 <?php
   // Kiểm tra xem có thông báo đặt hàng thành công không
   if (isset($_SESSION['order_success'])) {
