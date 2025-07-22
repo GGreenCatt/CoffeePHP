@@ -88,6 +88,56 @@
       $('#grid').click(function (event) { event.preventDefault(); $('#products .item').removeClass('list-group-item'); $('#products .item').addClass('grid-group-item'); });
     });
   </script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const addToCartButtons = document.querySelectorAll('.addcart');
+
+        addToCartButtons.forEach(button => {
+            button.addEventListener('click', function (event) {
+                event.preventDefault();
+                const productId = this.dataset.id;
+
+                // Gửi yêu cầu AJAX
+                fetch('../PHP/add_to_cart.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    body: 'id=' + productId
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        // Cập nhật số lượng trên icon giỏ hàng
+                        document.getElementById('cart-item-count').textContent = data.cart_count;
+                        document.getElementById('cart-item-count-fixed').textContent = data.cart_count;
+
+                        // Hiển thị thông báo thành công
+                        Swal.fire({
+                            toast: true,
+                            position: 'bottom-end',
+                            icon: 'success',
+                            title: 'Đã thêm vào giỏ hàng!',
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
+                    } else {
+                        // Hiển thị thông báo lỗi
+                        Swal.fire({
+                            toast: true,
+                            position: 'top-end',
+                            icon: 'error',
+                            title: 'Thêm thất bại!',
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
+                    }
+                })
+                .catch(error => console.error('Error:', error));
+            });
+        });
+    });
+    </script>
 </body>
 
 </html>

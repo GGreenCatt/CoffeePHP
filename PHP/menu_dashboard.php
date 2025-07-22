@@ -75,10 +75,10 @@ if (!empty($_SESSION['cart'])) {
     </div>
 
     <div class="navbar-m1">
-      <a class="nav-link activemenu" href="../Page/index.php">Thống kê</a>
-      <a class="nav-link" href="../Page/service.php">Kho</a>
-      <a class="nav-link" href="../Page/blog.php">Đơn đặt</a>
-      <a class="nav-link" href="../Page/about.php">Khách hàng</a>
+      <a class="nav-link activemenu" href="../Page/dashboard.php">Thống kê</a>
+      <a class="nav-link" href="../Page/storage.php">Kho</a>
+      <a class="nav-link" href="../Page/orders.php">Đơn đặt</a>
+      <a class="nav-link" href="../Page/customers.php">Khách hàng</a>
       <?php if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true): ?>
             <div class=" nav-link dropdown">
                 Tài khoản<span class="material-symbols-outlined">arrow_drop_down</span>

@@ -42,6 +42,7 @@ $conn->close();
     <meta charset="UTF-8">
     <title>Chi Tiết Đơn Hàng #<?php echo $order['idDonHang']; ?></title>
     <link rel="stylesheet" href="../Css/css.css">
+    <link rel="icon" type="image/x-icon" href="../Pic/Favicon.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap" rel="stylesheet">

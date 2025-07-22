@@ -50,9 +50,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <title>Document</title>
     <link rel="stylesheet" href="../Css/css.css">
       <!--Icon-->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-  <link rel="stylesheet"
-    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <link rel="icon" type="image/x-icon" href="../Pic/Favicon.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet"href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 </head>
 <body style="background-image:url(../Pic/about.jpg);">
     <span style="font-size: 50px;" class="material-symbols-outlined close"><a href="../Page/index.php">close</a></span>
@@ -73,7 +74,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <label for="">Số điện thoại</label>
                     <input type="number" name="phone" placeholder="Số điện thoại..." maxlength="11">
                     <label for="">Mật khẩu</label>
-                    <div style="position: relative;"><input type="password" name="password" placeholder="Mật khẩu..."><span toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle-password"></span></div>
+                    <div style="position: relative;"><input id="password-field" type="password" name="password" placeholder="Mật khẩu..."><span toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle-password"></span></div>
                     <div style="display: flex; justify-content: center;"><button type="submit">Đăng ký</button></div>
                 </form>
                     

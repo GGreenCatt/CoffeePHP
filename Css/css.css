@@ -546,7 +546,7 @@ html,body{
   }
   /*Rate*/
   .rate{
-    background-image: url(../Pic/menu-2.jpg);
+    background-image: url(../Pic/2.jpg);
     background-position: center -200px;
     background-size: cover;
     background-repeat: no-repeat;
@@ -890,7 +890,7 @@ html,body{
 }
 .resgister .form .banner{ 
   width: 40%;
-  background-image: url(../Pic/menu-2.jpg);
+  background-image: url(../Pic/2.jpg);
   background-size: cover;
 }
 .resgister .form .text{
@@ -960,6 +960,7 @@ input[type="number"] {
         }
 .dashboard{
   padding: 150px 100px 0 100px;
+  height: 100%;
   color: goldenrod;
   >h1{margin-bottom: 30px;}
 }
@@ -972,20 +973,20 @@ input[type="number"] {
   position: relative;
   width: 23%;
   height: 180px;
-  border: 1px solid goldenrod;
+  border: 1px dotted goldenrod;
   padding: 20px 30px;
-  background-color: gray;
-  color: white;
+  background: rgba(37,37,36,255);
+  color: goldenrod;
   border-radius: 10px;
   >h1{margin-bottom: 5px; font-weight: 500;}
   >h3{text-transform: uppercase; font-weight: 100;}
   overflow: hidden;
 }
-.material-symbols-outlined{
+.material-symbols-outlined.dashboard_icon{
   position: absolute;
   bottom: -60px; right: -45px;
   font-size: 200px;
-  color: black;
+  color: whitesmoke;
   opacity: 0.1;
 }
 .box .char{
@@ -993,6 +994,7 @@ input[type="number"] {
   border: 1px solid goldenrod;
   height: 440px;
   overflow: hidden;
+  padding: 10px;
 }
 .tbdonhang{
   border-collapse: collapse;
@@ -1002,8 +1004,243 @@ input[type="number"] {
   margin-top: 30px;
   margin-bottom: 30px;
   td,th{padding: 30px 10px;border-bottom: 1px solid goldenrod;}
+  a{text-decoration: none;}
 }
 .tbdonhang tr:first-child{
    background-color: rgba(196,154,98,255);
    color: white;
+}
+.add_product_header{
+  padding: 15px;
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  border-radius: 10px;
+  background-color: goldenrod;
+}
+.add_product{
+  display: flex;
+  background-color: rgba(37,37,36,255);
+  width: 100%;
+  height: 100%;
+  min-height: 570px;
+  border-radius: 20px;
+}
+.add_product .col{
+  width: 50%;
+  padding: 10px;
+  h1{margin: 15px 0;text-align: center;}
+  img{border-radius: 20px;}
+}
+.add_product_form{
+  label{display: block;margin: 5px;}
+  input,textarea,option,select{
+    width: 100%;
+    padding: 15px 15px;
+    border: 1px solid goldenrod;
+    background-color: black;
+    color: goldenrod;
+    font-size: 17px;
+    border-radius: 60px;
+  }
+  button,.button{
+    padding: 10px;
+    background-color: goldenrod;
+    color: white;
+    font-weight: bold;
+    border: none;
+    margin-top: 20px;
+    border-radius: 5px;
+    font-size: 18px;
+    cursor: pointer;
+    margin-right: 10px;
+  }
+}
+.add_product_form button:hover,.button:hover{
+  background-color: transparent;
+  border: 1px solid goldenrod;
+  color: goldenrod;
+}
+.material-symbols-outlined.icon-edit,.icon-delete{
+  color: white;
+  font-size: 27px;
+}
+.material-symbols-outlined.icon-edit:hover,.icon-delete:hover{
+  color: goldenrod;
+}
+/* === CUSTOMER DETAILS PAGE STYLES === */
+
+.customer-details-layout {
+    display: flex;
+    gap: 30px;
+    align-items: flex-start;
+}
+
+.customer-profile-card {
+    flex: 0 0 300px; /* Thẻ profile có độ rộng cố định */
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    overflow: hidden;
+    text-align: center;
+}
+
+.profile-header {
+    background: #c49a6c;
+    color: white;
+    padding: 30px 20px;
+}
+
+.profile-icon {
+    font-size: 60px !important;
+}
+
+.profile-header h3 {
+    margin: 10px 0 5px 0;
+    font-size: 1.4em;
+}
+
+.profile-header p {
+    margin: 0;
+    opacity: 0.8;
+    font-size: 0.9em;
+}
+
+.profile-body {
+    padding: 20px;
+}
+
+.profile-info-line {
+    display: flex;
+    align-items: center;
+    text-align: left;
+    margin-bottom: 15px;
+    color: #555;
+}
+
+.profile-info-line .material-symbols-outlined {
+    margin-right: 15px;
+    color: #c49a6c;
+}
+
+.customer-order-history {
+    flex: 1; /* Phần lịch sử đơn hàng chiếm hết không gian còn lại */
+    background: #fff;
+    padding: 25px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+.customer-order-history h3 {
+    margin-top: 0;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #eee;
+}
+
+.customer-order-history .tbdonhang td small {
+    display: block;
+    color: #777;
+}
+
+.customer-order-history .tbdonhang td a {
+    font-weight: bold;
+    color: #c49a6c;
+}
+.main-header{
+  margin-bottom: 20px;
+}
+/* === DASHBOARD CHARTS ROW STYLES === */
+.charts-row {
+    display: flex; /* Dàn các mục con theo hàng ngang */
+    justify-content: space-between; /* Phân bổ không gian đều giữa các mục */
+    gap: 2%; /* Tạo khoảng cách 2% giữa các mục */
+    margin-bottom: 30px;
+}
+
+.chart-card {
+    width: 32%; /* Mỗi mục chiếm 32% chiều rộng */
+    background: rgba(37,37,36,255);
+    padding: 25px 25px 50px 25px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    overflow: hidden;
+    height: 350px;
+}
+
+.chart-card h3 {
+    margin-top: 0;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+/* Style cho bảng Top sản phẩm nhỏ hơn */
+.chart-card .tbdonhang.compact {
+    margin-bottom: 0;
+}
+.chart-card .tbdonhang.compact th,
+.chart-card .tbdonhang.compact td {
+    padding: 10px; /* Giảm padding cho bảng nhỏ */
+    font-size: 14px;
+}
+/* === SEARCH CONTAINER STYLES === */
+.search-container {
+    margin-bottom: 20px;
+}
+
+.search-container form {
+    display: flex;
+    max-width: 400px; /* Giới hạn độ rộng của ô tìm kiếm */
+}
+
+.search-container input[type="text"] {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 5px 0 0 5px; /* Bo tròn góc trái */
+    box-sizing: border-box;
+    outline: none;
+}
+.search-container input[type="text"]:focus {
+    border-color: #c49a6c;
+}
+
+.search-container button {
+    padding: 0 15px;
+    border: 1px solid #c49a6c;
+    background-color: #c49a6c;
+    color: white;
+    cursor: pointer;
+    border-radius: 0 5px 5px 0; /* Bo tròn góc phải */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.search-container button:hover {
+    background-color: #a07d56;
+}
+/* === PAGINATION STYLES === */
+.pagination {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.pagination a {
+    color: #c49a6c;
+    padding: 8px 16px;
+    text-decoration: none;
+    border: 1px solid #ddd;
+    margin: 0 4px 10px 0;
+    border-radius: 4px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.pagination a.active {
+    background-color: #c49a6c;
+    color: white;
+    border-color: #c49a6c;
+}
+
+.pagination a:hover:not(.active) {
+    background-color: #f2f2f2;
 }

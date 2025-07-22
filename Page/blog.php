@@ -39,7 +39,7 @@
     <div class="blogbox">
       <div class="col">
         <div class="imgbox">
-          <div class="img" style="background-image: url(../Pic/image_1.jpg);"></div>
+          <div class="img" style="background-image: url(../Pic/1.jpg);"></div>
         </div>
         <div class="text">
           <p>Tháng 2, 2023 ADMIN</p>
@@ -50,7 +50,7 @@
 
       <div class="col">
         <div class="imgbox">
-          <div class="img" style="background-image: url(../Pic/image_2.jpg);"></div>
+          <div class="img" style="background-image: url(../Pic/2.jpg);"></div>
         </div>
         <div class="text">
           <p>Tháng 2, 2023 ADMIN</p>
@@ -61,7 +61,7 @@
 
       <div class="col">
         <div class="imgbox">
-          <div class="img" style="background-image: url(../Pic/image_3.jpg);"></div>
+          <div class="img" style="background-image: url(../Pic/3.jpg);"></div>
         </div>
         <div class="text">
           <p>Tháng 2, 2023 ADMIN</p>
@@ -74,7 +74,7 @@
     <div class="blogbox">
       <div class="col">
         <div class="imgbox">
-          <div class="img" style="background-image: url(../Pic/image_4.jpg);"></div>
+          <div class="img" style="background-image: url(../Pic/4.jpg);"></div>
         </div>
         <div class="text">
           <p>Tháng 2, 2023 ADMIN</p>
@@ -85,7 +85,7 @@
 
       <div class="col">
         <div class="imgbox">
-          <div class="img" style="background-image: url(../Pic/image_5.jpg);"></div>
+          <div class="img" style="background-image: url(../Pic/5.jpg);"></div>
         </div>
         <div class="text">
           <p>Tháng 2, 2023 ADMIN</p>
@@ -96,7 +96,7 @@
 
       <div class="col">
         <div class="imgbox">
-          <div class="img" style="background-image: url(../Pic/image_6.jpg);"></div>
+          <div class="img" style="background-image: url(../Pic/6.jpg);"></div>
         </div>
         <div class="text">
           <p>Tháng 2, 2023 ADMIN</p>

@@ -80,7 +80,6 @@ if (!empty($_SESSION['cart'])) {
         Thực Đơn<span class="material-symbols-outlined">arrow_drop_down</span>
         <div class="dropdown-content">
           <a href="../Page/coffee.php">Cafe</a>
-          <a href="../Page/main-dish.php">Món Chính</a>
           <a href="../Page/drinks.php">Đồ Uống Khác</a>
           <a href="../Page/desserts.php">Tráng Miệng</a>
           <a href="../Page/snack.php">Đồ Ăn Vặt</a>
@@ -127,7 +126,6 @@ if (!empty($_SESSION['cart'])) {
         Thực Đơn<span class="material-symbols-outlined">arrow_drop_down</span>
         <div class="dropdown-content">
           <a href="../Page/coffee.php">Cafe</a>
-          <a href="../Page/main-dish.php">Món Chính</a>
           <a href="../Page/drinks.php">Đồ Uống Khác</a>
           <a href="../Page/desserts.php">Tráng Miệng</a>
           <a href="../Page/snack.php">Đồ Ăn Vặt</a>

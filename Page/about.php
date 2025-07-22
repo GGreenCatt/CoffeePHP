@@ -70,25 +70,25 @@
           <div class="rowright">
             <div class="colum">
               <div class="galley">
-                <span class="img" style="background-image: url(../Pic/menu-1.jpg);">
+                <span class="img" style="background-image: url(../Pic/1.jpg);">
                 </span>
               </div>
             </div>
             <div class="colum">
               <div class="galley">
-                <span class="img mt-4" style="background-image: url(../Pic/menu-2.jpg);">
+                <span class="img mt-4" style="background-image: url(../Pic/2.jpg);">
                 </span>
               </div>
             </div>
             <div class="colum">
               <div class="galley">
-                <span class="img" style="background-image: url(../Pic/menu-3.jpg);">
+                <span class="img" style="background-image: url(../Pic/3.jpg);">
                 </span>
               </div>
             </div>
             <div class="colum">
               <div class="galley">
-                <span class="img mt-4" style="background-image: url(../Pic/menu-4.jpg);">
+                <span class="img mt-4" style="background-image: url(../Pic/4.jpg);">
                 </span>
               </div>
             </div>

@@ -35,7 +35,7 @@
   <?php include_once '../PHP/Connect.php'?>
   <?php 
     include '../PHP/Menu.php';
-    $sql = "SELECT idsanpham, TenSanPham, GiaTien FROM sanpham WHERE PhanLoai = 'Cà Phê'";
+    $sql = "SELECT idsanpham, TenSanPham, GiaTien FROM sanpham WHERE PhanLoai = 'Cà Phê' AND TrangThai = 'Hoạt động'";
     $result = mysqli_query($conn, $sql);
   ?>
   <!--Banner-->

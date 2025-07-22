@@ -115,7 +115,7 @@ html,body{
     text-transform: uppercase;
     height: 100%;
     width: 100%;
-    background-image: linear-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.35)),url(../Pic/bg_3.jpg);
+    background-image: linear-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.35)),url(../Pic/bg_2.jpg);
     background-size: cover;
     background-position: center center;
     background-repeat: no-repeat;
@@ -316,7 +316,7 @@ transform: translate(-50%, -50%);
     }
   /*Rate*/
     .rate{
-      background-image: url(../Pic/menu-2.jpg);
+      background-image: url(../Pic/2.jpg);
       background-position: center -200px;
       background-size: cover;
       background-repeat: no-repeat;
