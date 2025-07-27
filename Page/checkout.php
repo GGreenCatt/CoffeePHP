@@ -45,7 +45,7 @@ $tong_cong = $tam_tinh + $phi_ship - $giam_gia;
     <div class="banner">
     <h1>Thanh toán</h1>
     <p>
-      <a href="../index.php">Trang chủ</a>
+      <a href="index.php">Trang chủ</a>
       <a href="checkout.php" style="color: gray;">Thanh toán</a>
     </p>
   </div>
@@ -88,27 +88,27 @@ $tong_cong = $tam_tinh + $phi_ship - $giam_gia;
           </form>
         </div>
       </div>
-  
-        <div class="col-25">
-    <div class="container">
-                <h4>Đơn hàng của bạn 
-        <span class="price" style="color:black">
-          <i class="fa fa-shopping-cart"></i>
-          <b><?php echo $total_quantity; ?></b>
-        </span>
-      </h4>
       
-  <?php foreach ($cart as $item): ?>
- <p>
-<span><?php echo htmlspecialchars($item['ten']); ?> <small>(x<?php echo $item['soluong']; ?>)</small></span> 
-<span class="price"><?php echo number_format($item['gia'] * $item['soluong'], 0, ',', '.'); ?> VNĐ</span>
-  </p>
-<?php endforeach; ?>
-<hr>
-
-<p>Tạm tính <span class="price"><?php echo number_format($tam_tinh, 0, ',', '.'); ?> VNĐ</span></p>
-<p>Phí vận chuyển <span class="price"><?php echo number_format($phi_ship, 0, ',', '.'); ?> VNĐ</span></p>
-<hr>
+            <div class="col-25">
+        <div class="container">
+                    <h4>Đơn hàng của bạn 
+            <span class="price" style="color:black">
+              <i class="fa fa-shopping-cart"></i>
+              <b><?php echo $total_quantity; ?></b>
+            </span>
+          </h4>
+          
+          <?php foreach ($cart as $item): ?>
+            <p>
+              <span><?php echo htmlspecialchars($item['ten']); ?> <small>(x<?php echo $item['soluong']; ?>)</small></span> 
+              <span class="price"><?php echo number_format($item['gia'] * $item['soluong'], 0, ',', '.'); ?> VNĐ</span>
+            </p>
+          <?php endforeach; ?>
+          <hr>
+          
+          <p>Tạm tính <span class="price"><?php echo number_format($tam_tinh, 0, ',', '.'); ?> VNĐ</span></p>
+          <p>Phí vận chuyển <span class="price"><?php echo number_format($phi_ship, 0, ',', '.'); ?> VNĐ</span></p>
+          <hr>
           <p>Tổng cộng <span class="price" style="color:black"><b><?php echo number_format($tong_cong, 0, ',', '.'); ?> VNĐ</b></span></p>
         </div>
       </div>

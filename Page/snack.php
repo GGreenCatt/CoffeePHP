@@ -36,8 +36,8 @@
   <div class="banner">
     <h1>đồ ăn vặt của chúng tôi</h1>
     <p>
-      <a href="../index.html">Trang chủ</a>
-      <a href="snack.html" style="color: gray;">đồ ăn vặt</a>
+      <a href="index.php">Trang chủ</a>
+      <a href="snack.php" style="color: gray;">đồ ăn vặt</a>
     </p>
   </div>
   <!--snack-->

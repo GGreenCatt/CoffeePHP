@@ -42,8 +42,8 @@
   <div class="banner">
     <h1>Cafe</h1>
     <p>
-      <a href="../index.html">Trang chủ</a>
-      <a href="about.html" style="color: gray;">CaFE</a>
+      <a href="index.php">Trang chủ</a>
+      <a href="coffee.php" style="color: gray;">CaFE</a>
     </p>
   </div>
   <!--Coffee-->

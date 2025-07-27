@@ -43,7 +43,7 @@ $tong_cong = $tam_tinh + $phi_ship - $giam_gia;
  <div class="banner">
  <h1>Giỏ hàng</h1>
  <p>
- <a href="../index.php">Trang chủ</a>
+ <a href="index.php">Trang chủ</a>
  <a href="cart.php" style="color: gray;">Giỏ hàng</a>
  </p>
  </div>

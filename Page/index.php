@@ -38,12 +38,12 @@ session_start();
       <p>Khám phá hương vị mới mẻ tại quán cafe của chúng tôi, nơi mỗi giọt
         cà phê là một chuyến phiêu lưu đầy sáng tạo!</p>
       <span class="menu-buttom">
-        <button class="buttom a">
+        <a href="coffee.php" class="buttom a" >
           Đặt Hàng Ngay
-        </button>
-        <button class="buttom b">
+        </a>
+        <a href="desserts.php" class="buttom b">
           Xem Thực Đơn
-        </button>
+        </a>
       </span>
     </div>
 
@@ -54,12 +54,12 @@ session_start();
       <p>Khám phá hương vị mới mẻ tại quán cafe của chúng tôi, nơi mỗi giọt cà phê là một chuyến phiêu lưu đầy sáng tạo!
       </p>
       <span class="menu-buttom">
-        <button class="buttom a">
+        <a href="coffee.php" class="buttom a" >
           Đặt Hàng Ngay
-        </button>
-        <button class="buttom b">
+        </a>
+        <a href="desserts.php" class="buttom b">
           Xem Thực Đơn
-        </button>
+        </a>
       </span>
     </div>
 
@@ -70,12 +70,12 @@ session_start();
       <p>Khám phá hương vị mới mẻ tại quán cafe của chúng tôi, nơi mỗi giọt cà phê là một chuyến phiêu lưu đầy sáng tạo!
       </p>
       <span class="menu-buttom">
-        <button class="buttom a">
+        <a href="coffee.php" class="buttom a" >
           Đặt Hàng Ngay
-        </button>
-        <button class="buttom b">
+        </a>
+        <a href="desserts.php" class="buttom b">
           Xem Thực Đơn
-        </button>
+        </a>
       </span>
     </div>
 
@@ -260,7 +260,7 @@ session_start();
               hàng trải nghiệm thưởng thức đặc sắc. Đối với người yêu cà phê, chúng tôi có các lựa chọn hương vị
               đa dạng từ cappuccino truyền thống đến espresso mạnh mẽ. Đồng thời, thực đơn của chúng tôi còn
               bao gồm nhiều đồ ăn và đồ uống đặc biệt để phục vụ khách hàng một cách chu đáo nhất </p>
-            <p><a href="Page/coffee.html">Xem thực đơn</a></p>
+            <p><a href="coffee.php">Xem thực đơn</a></p>
           </div>
         </div>
 
@@ -373,7 +373,7 @@ session_start();
           <h3>Cà phê Capuccino</h3>
           <p>Mỗi tách cà phê được làm ra bởi các barista chuyên nghiệp</p>
           <p class="price">25.000 VNĐ</p>
-          <p><a href="Page/cart.html" class="addcart">Đặt Mua Hàng</a></p>
+          <p><button class="addcart" data-id="1">Đặt Mua Hàng</button></p>
         </div>
       </div>
 
@@ -385,7 +385,7 @@ session_start();
           <h3>Cà phê Espresso</h3>
           <p>Mỗi tách cà phê được làm ra bởi các barista chuyên nghiệp</p>
           <p class="price">25.000 VNĐ</p>
-          <p><a href="Page/cart.html" class="addcart">Đặt Mua Hàng</a></p>
+          <p><button class="addcart" data-id="2">Đặt Mua Hàng</button></p>
         </div>
       </div>
 
@@ -397,7 +397,7 @@ session_start();
           <h3>Cà phê sữa đá</h3>
           <p>Mỗi tách cà phê được làm ra bởi các barista chuyên nghiệp</p>
           <p class="price">25.000 VNĐ</p>
-          <p><a href="Page/cart.html" class="addcart">Đặt Mua Hàng</a></p>
+          <p><button class="addcart" data-id="3">Đặt Mua Hàng</button></p>
         </div>
       </div>
 
@@ -409,7 +409,7 @@ session_start();
           <h3>Cà phê Latte</h3>
           <p>Mỗi tách cà phê được làm ra bởi các barista chuyên nghiệp</p>
           <p class="price">25.000 VNĐ</p>
-          <p><a href="Page/cart.html" class="addcart">Đặt Mua Hàng</a></p>
+          <p><button class="addcart" data-id="4">Đặt Mua Hàng</button></p>
         </div>
       </div>
     </div>
@@ -477,6 +477,56 @@ session_start();
       }
     }
   </script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const addToCartButtons = document.querySelectorAll('.addcart');
+
+        addToCartButtons.forEach(button => {
+            button.addEventListener('click', function (event) {
+                event.preventDefault();
+                const productId = this.dataset.id;
+
+                // Gửi yêu cầu AJAX
+                fetch('../PHP/add_to_cart.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    body: 'id=' + productId
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        // Cập nhật số lượng trên icon giỏ hàng
+                        document.getElementById('cart-item-count').textContent = data.cart_count;
+                        document.getElementById('cart-item-count-fixed').textContent = data.cart_count;
+
+                        // Hiển thị thông báo thành công
+                        Swal.fire({
+                            toast: true,
+                            position: 'bottom-end',
+                            icon: 'success',
+                            title: 'Đã thêm vào giỏ hàng!',
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
+                    } else {
+                        // Hiển thị thông báo lỗi
+                        Swal.fire({
+                            toast: true,
+                            position: 'top-end',
+                            icon: 'error',
+                            title: 'Thêm thất bại!',
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
+                    }
+                })
+                .catch(error => console.error('Error:', error));
+            });
+        });
+    });
+    </script>
 </body>
 
 </html>

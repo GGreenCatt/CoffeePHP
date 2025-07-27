@@ -178,6 +178,8 @@ html,body{
         border: 1px solid goldenrod;
         background-color: goldenrod;
         color: black;
+        text-decoration: none;
+        margin-right: 5px;
       }
           .buttom.a:hover{
             background: transparent;
@@ -186,6 +188,7 @@ html,body{
       .buttom.b{
         color: white;
         border: 1px solid white;
+        text-decoration: none;
       }
           .buttom.b:hover{
             border: 1px solid goldenrod;

@@ -29,8 +29,8 @@
   <div class="banner">
     <h1>Liên hệ</h1>
     <p>
-      <a href="../index.html">TRANG CHỦ</a>
-      <a href="contact.html" style="color: gray;">LIÊN HỆ</a>
+      <a href="index.php">TRANG CHỦ</a>
+      <a href="contact.php" style="color: gray;">LIÊN HỆ</a>
     </p>
   </div>
   <!--Contact-->

@@ -69,7 +69,7 @@ $conn->close();
 <body>
     <?php include '../PHP/Menu.php'; ?>
 
-    <div class="banner">
+    <div class="banner" style="padding: 130px 50px 0 50px;">
         <h1>Lịch Sử Đặt Hàng</h1>
     </div>
 

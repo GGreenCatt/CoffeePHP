@@ -13,7 +13,7 @@ if (isset($_GET['search']) && !empty($_GET['search'])) {
     $sql .= " WHERE HoTen LIKE ? OR sdt LIKE ?";
 }
 
-$sql .= " ORDER BY idTaiKhoan DESC";
+$sql .= " ORDER BY idTaiKhoan";
 
 // Chuẩn bị và thực thi câu lệnh
 $stmt = $conn->prepare($sql);
@@ -71,9 +71,6 @@ $result = $stmt->get_result();
                                 <td class="action-links">
                                     <a href="customer_details.php?id=<?php echo $row['idTaiKhoan']; ?>" title="Xem chi tiết khách hàng">
                                         <span class="material-symbols-outlined">visibility</span>
-                                    </a>
-                                    <a href="#" title="Xóa tài khoản" onclick="return confirm('Bạn có chắc chắn muốn xóa khách hàng này?');">
-                                        <span class="material-symbols-outlined icon-delete">delete</span>
                                     </a>
                                 </td>
                             </tr>

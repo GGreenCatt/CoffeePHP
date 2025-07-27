@@ -36,8 +36,8 @@
   <div class="banner">
     <h1>Đồ uống</h1>
     <p>
-      <a href="../index.html">Trang chủ</a>
-      <a href="drinks.html" style="color: gray;">Đồ uống</a>
+      <a href="index.php">Trang chủ</a>
+      <a href="drinks.php" style="color: gray;">Đồ uống</a>
     </p>
   </div>
   <!--Coffee-->

@@ -65,7 +65,7 @@ $conn->close();
 <body>
     <?php include '../PHP/Menu.php'; ?>
 
-    <div style="margin-top: 100px;" class="banner">
+    <div style="margin: 100px 0 0 125px;" class="banner">
         <h1>Chi Tiết Đơn Hàng #<?php echo $order['idDonHang']; ?></h1>
     </div>
 

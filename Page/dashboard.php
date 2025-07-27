@@ -67,7 +67,7 @@ while ($row = mysqli_fetch_assoc($category_sales_result)) {
 }
 
 // 5. Lấy 5 đơn hàng gần đây nhất (giữ nguyên)
-$sql_recent_orders = "SELECT TenNguoiNhan, NgayDat, TrangThai, TongTien FROM donhang ORDER BY NgayDat DESC LIMIT 5";
+$sql_recent_orders = "SELECT idDonHang, TenNguoiNhan, NgayDat, TrangThai, TongTien FROM donhang ORDER BY NgayDat DESC LIMIT 5";
 $recent_orders_result = mysqli_query($conn, $sql_recent_orders);
 ?>
 <!DOCTYPE html>
@@ -152,6 +152,7 @@ $recent_orders_result = mysqli_query($conn, $sql_recent_orders);
                     <th>Ngày đặt</th>
                     <th>Trạng thái</th>
                     <th>Đơn giá</th>
+                    <th></th>
                 </tr>
                 <?php if (mysqli_num_rows($recent_orders_result) > 0): ?>
                     <?php while($row = mysqli_fetch_assoc($recent_orders_result)): ?>
@@ -160,6 +161,11 @@ $recent_orders_result = mysqli_query($conn, $sql_recent_orders);
                             <td><?php echo date('d/m/Y H:i', strtotime($row['NgayDat'])); ?></td>
                             <td><?php echo htmlspecialchars($row['TrangThai']); ?></td>
                             <td><?php echo number_format($row['TongTien'], 0, ',', '.'); ?> VNĐ</td>
+                            <td class="action-links">
+                                <a href="order_details_admin.php?id=<?php echo $row['idDonHang']; ?>">
+                                    <span class="material-symbols-outlined">visibility</span>
+                                </a>
+                            </td>
                         </tr>
                     <?php endwhile; ?>
                 <?php else: ?>

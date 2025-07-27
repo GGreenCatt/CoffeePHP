@@ -28,8 +28,8 @@
   <div class="banner">
     <h1>Về Chúng tôi</h1>
     <p>
-      <a href="../index.html">Trang chủ</a>
-      <a href="about.html" style="color: gray;">GIới thiệu</a>
+      <a href="index.php">Trang chủ</a>
+      <a href="about.php" style="color: gray;">GIới thiệu</a>
     </p>
   </div>
   <!--Story-->
@@ -62,7 +62,7 @@
               hàng trải nghiệm thưởng thức đặc sắc. Đối với người yêu cà phê, chúng tôi có các lựa chọn hương vị
               đa dạng từ cappuccino truyền thống đến espresso mạnh mẽ. Đồng thời, thực đơn của chúng tôi còn
               bao gồm nhiều đồ ăn và đồ uống đặc biệt để phục vụ khách hàng một cách chu đáo nhất </p>
-            <p><a href="../Page/coffee.html">Xem thực đơn</a></p>
+            <p><a href="coffee.php">Xem thực đơn</a></p>
           </div>
         </div>
 

@@ -41,13 +41,30 @@ $conn->close();
 <head>
     <meta charset="UTF-8">
     <title>Chi Tiết Đơn Hàng #<?php echo $order['idDonHang']; ?></title>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../Css/css.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet"href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+<style>
+        .details-container { display: flex; max-width: 1200px; margin: 40px auto; gap: 30px; }
+        .order-info, .shipping-info { flex: 1; background: #fff; padding: 25px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        .info-header { border-bottom: 1px solid #eee; padding-bottom: 15px; margin-bottom: 20px; }
+        .info-header h2 { color: #333; }
+        .info-header p { color: #777; }
+        .info-line { display: flex; justify-content: space-between; margin-bottom: 10px; }
+        .product-list .info-line { align-items: center; }
+        .product-list img { width: 50px; height: 50px; border-radius: 4px; margin-right: 15px; }
+        .product-name { flex-grow: 1; }
+        .order-total { border-top: 1px solid #eee; padding-top: 15px; margin-top: 20px; font-weight: bold; font-size: 1.2em; }
+</style>
 </head>
 <body>
     <div class="admin-container">
         <?php include_once __DIR__ . '/../PHP/menu_dashboard.php'; ?>
 
-        <div class="admin-main-content">
+        <div class="admin-main-content" style="padding: 130px 50px 0 50px;">
              <div class="main-header">
                 <h2>Chi Tiết Đơn Hàng #<?php echo $order['idDonHang']; ?></h2>
                 <a href="orders.php" class="btn btn-secondary">Quay Lại Danh Sách</a>

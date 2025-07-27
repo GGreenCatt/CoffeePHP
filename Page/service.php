@@ -29,8 +29,8 @@
   <div class="banner">
     <h1>DỊCH VỤ</h1>
     <p>
-      <a href="../index.html">TRANG CHỦ</a>
-      <a href="service.html" style="color: gray;">DỊCH VỤ</a>
+      <a href="index.php">TRANG CHỦ</a>
+      <a href="service.php" style="color: gray;">DỊCH VỤ</a>
     </p>
   </div>
   <!--Service-->

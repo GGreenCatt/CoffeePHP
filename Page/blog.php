@@ -30,8 +30,8 @@
   <div class="banner">
     <h1>BLOG</h1>
     <p>
-      <a href="../index.html">Trang chủ</a>
-      <a href="blog.html" style="color: gray;">BLOG</a>
+      <a href="index.php">Trang chủ</a>
+      <a href="blog.php" style="color: gray;">BLOG</a>
     </p>
   </div>
   <!--Blog-->
