@@ -11,6 +11,15 @@ if (!empty($_SESSION['cart'])) {
         $cart_item_count += $item['soluong'];
     }
 }
+
+// Lấy tên file của trang hiện tại
+$current_page = basename($_SERVER['PHP_SELF']);
+
+// Nhóm các trang liên quan để làm nổi bật menu
+$storage_pages = ['storage.php', 'add_product.php', 'edit_product.php'];
+$order_pages = ['orders.php', 'order_details_admin.php'];
+$customer_pages = ['customers.php', 'customer_details.php'];
+
 ?>
   <style> 
   .dropdown-content {
@@ -75,10 +84,10 @@ if (!empty($_SESSION['cart'])) {
     </div>
 
     <div class="navbar-m1">
-      <a class="nav-link activemenu" href="../Page/dashboard.php">Thống kê</a>
-      <a class="nav-link" href="../Page/storage.php">Kho</a>
-      <a class="nav-link" href="../Page/orders.php">Đơn đặt</a>
-      <a class="nav-link" href="../Page/customers.php">Khách hàng</a>
+      <a class="nav-link <?php if ($current_page == 'dashboard.php') echo 'activemenu'; ?>" href="../Page/dashboard.php">Thống kê</a>
+      <a class="nav-link <?php if (in_array($current_page, $storage_pages)) echo 'activemenu'; ?>" href="../Page/storage.php">Kho</a>
+      <a class="nav-link <?php if (in_array($current_page, $order_pages)) echo 'activemenu'; ?>" href="../Page/orders.php">Đơn đặt</a>
+      <a class="nav-link <?php if (in_array($current_page, $customer_pages)) echo 'activemenu'; ?>" href="../Page/customers.php">Khách hàng</a>
       <?php if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true): ?>
             <div class=" nav-link dropdown">
                 Tài khoản<span class="material-symbols-outlined">arrow_drop_down</span>
@@ -94,53 +103,6 @@ if (!empty($_SESSION['cart'])) {
       <?php else: ?>
           <a class="nav-link" href="../PHP/Login.php">Tài khoản</a>
       <?php endif; ?>
-      </a>
-    </div>
-  </div>
-  <div id="navbar" class="navbar fixed">
-    <div class="brand">
-      <a href="index.html" class="brand-link">HIGHBUCKS<br>
-        <small>COFFEE</small>
-      </a>
-    </div>
-
-    <div class="navbar-m1">
-      <a class="nav-link activemenu" href="../Page/index.php">Trang Chủ</a>
-      <div class=" nav-link dropdown">
-        Thực Đơn<span class="material-symbols-outlined">arrow_drop_down</span>
-        <div class="dropdown-content">
-          <a href="../Page/coffee.php">Cafe</a>
-          <a href="../Page/main-dish.php">Món Chính</a>
-          <a href="../Page/drinks.php">Đồ Uống Khác</a>
-          <a href="../Page/desserts.php">Tráng Miệng</a>
-          <a href="../Page/snack.php">Đồ Ăn Vặt</a>
-        </div>
-      </div>
-      <a class="nav-link" href="../Page/service.php">Dịch Vụ</a>
-      <a class="nav-link" href="../Page/blog.php">Blog</a>
-      <a class="nav-link" href="../Page/about.php">Giới Thiệu</a>
-      <a class="nav-link" href="../Page/contact.php">Liên Hệ</a>
-      <?php if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true): ?>
-             <div class=" nav-link dropdown">
-                Tài khoản<span class="material-symbols-outlined">arrow_drop_down</span>
-                <div class="dropdown-content">
-                    <div class="dropdown-user-info">
-                        <strong><?php echo htmlspecialchars($_SESSION['hoten']); ?></strong><br>
-                        <small><?php echo htmlspecialchars($_SESSION['phone']); ?></small>
-                    </div>
-                    <a href="../Page/update_profile.php">Cập nhật thông tin</a>
-                    <a href="../Page/order_history.php">Lịch sử đặt hàng</a>
-                    <a href="../PHP/Logout.php">Đăng xuất</a>
-                </div>
-            </div>
-      <?php else: ?>
-          <a class="nav-link" href="../PHP/Login.php">Tài khoản</a>
-      <?php endif; ?>
-      <a class="nav-link" href="../Page/cart.php" id="cart-icon-wrapper-fixed">
-        <span class="material-symbols-outlined">
-          shopping_cart
-        </span>
-        <span id="cart-item-count-fixed" class="cart-count"><?php echo $cart_item_count; ?></span>
       </a>
     </div>
   </div>

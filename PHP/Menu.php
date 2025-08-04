@@ -11,6 +11,12 @@ if (!empty($_SESSION['cart'])) {
         $cart_item_count += $item['soluong'];
     }
 }
+
+// Lấy tên file của trang hiện tại
+$current_page = basename($_SERVER['PHP_SELF']);
+
+// Danh sách các trang thuộc menu "Thực đơn" (bao gồm cả trang chi tiết sản phẩm)
+$thuc_don_pages = ['coffee.php', 'drinks.php', 'desserts.php', 'snack.php', 'Product_Detail.php'];
 ?>
   <style> 
   .dropdown-content {
@@ -75,8 +81,8 @@ if (!empty($_SESSION['cart'])) {
     </div>
 
     <div class="navbar-m1">
-      <a class="nav-link activemenu" href="../Page/index.php">Trang Chủ</a>
-      <div class=" nav-link dropdown">
+      <a class="nav-link <?php if ($current_page == 'index.php') echo 'activemenu'; ?>" href="../Page/index.php">Trang Chủ</a>
+      <div class=" nav-link dropdown <?php if (in_array($current_page, $thuc_don_pages)) echo 'activemenu'; ?>">
         Thực Đơn<span class="material-symbols-outlined">arrow_drop_down</span>
         <div class="dropdown-content">
           <a href="../Page/coffee.php">Cafe</a>
@@ -85,10 +91,10 @@ if (!empty($_SESSION['cart'])) {
           <a href="../Page/snack.php">Đồ Ăn Vặt</a>
         </div>
       </div>
-      <a class="nav-link" href="../Page/service.php">Dịch Vụ</a>
-      <a class="nav-link" href="../Page/blog.php">Blog</a>
-      <a class="nav-link" href="../Page/about.php">Giới Thiệu</a>
-      <a class="nav-link" href="../Page/contact.php">Liên Hệ</a>
+      <a class="nav-link <?php if ($current_page == 'service.php') echo 'activemenu'; ?>" href="../Page/service.php">Dịch Vụ</a>
+      <a class="nav-link <?php if ($current_page == 'blog.php') echo 'activemenu'; ?>" href="../Page/blog.php">Blog</a>
+      <a class="nav-link <?php if ($current_page == 'about.php') echo 'activemenu'; ?>" href="../Page/about.php">Giới Thiệu</a>
+      <a class="nav-link <?php if ($current_page == 'contact.php') echo 'activemenu'; ?>" href="../Page/contact.php">Liên Hệ</a>
       <?php if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true): ?>
             <div class=" nav-link dropdown">
                 Tài khoản<span class="material-symbols-outlined">arrow_drop_down</span>
@@ -121,8 +127,8 @@ if (!empty($_SESSION['cart'])) {
     </div>
 
     <div class="navbar-m1">
-      <a class="nav-link activemenu" href="../Page/index.php">Trang Chủ</a>
-      <div class=" nav-link dropdown">
+      <a class="nav-link <?php if ($current_page == 'index.php') echo 'activemenu'; ?>" href="../Page/index.php">Trang Chủ</a>
+      <div class=" nav-link dropdown <?php if (in_array($current_page, $thuc_don_pages)) echo 'activemenu'; ?>">
         Thực Đơn<span class="material-symbols-outlined">arrow_drop_down</span>
         <div class="dropdown-content">
           <a href="../Page/coffee.php">Cafe</a>
@@ -131,10 +137,10 @@ if (!empty($_SESSION['cart'])) {
           <a href="../Page/snack.php">Đồ Ăn Vặt</a>
         </div>
       </div>
-      <a class="nav-link" href="../Page/service.php">Dịch Vụ</a>
-      <a class="nav-link" href="../Page/blog.php">Blog</a>
-      <a class="nav-link" href="../Page/about.php">Giới Thiệu</a>
-      <a class="nav-link" href="../Page/contact.php">Liên Hệ</a>
+      <a class="nav-link <?php if ($current_page == 'service.php') echo 'activemenu'; ?>" href="../Page/service.php">Dịch Vụ</a>
+      <a class="nav-link <?php if ($current_page == 'blog.php') echo 'activemenu'; ?>" href="../Page/blog.php">Blog</a>
+      <a class="nav-link <?php if ($current_page == 'about.php') echo 'activemenu'; ?>" href="../Page/about.php">Giới Thiệu</a>
+      <a class="nav-link <?php if ($current_page == 'contact.php') echo 'activemenu'; ?>" href="../Page/contact.php">Liên Hệ</a>
       <?php if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true): ?>
              <div class=" nav-link dropdown">
                 Tài khoản<span class="material-symbols-outlined">arrow_drop_down</span>
