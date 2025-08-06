@@ -430,3 +430,9 @@ input[type="number"] {
   font-size: larger;
   color: goldenrod;
 }
+.promo-box button:hover{
+  background-color: transparent;
+  border: 1px solid goldenrod;
+  color:white;
+  cursor: pointer;
+}

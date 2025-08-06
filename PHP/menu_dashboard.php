@@ -78,7 +78,7 @@ $customer_pages = ['customers.php', 'customer_details.php'];
   </style>
   <div class="navbar">
     <div class="brand">
-      <a href="index.php" class="brand-link">HIGHBUCKS<br>
+      <a href="../Page/dashboard.php" class="brand-link">HIGHBUCKS<br>
         <small>COFFEE</small>
       </a>
     </div>
@@ -88,6 +88,7 @@ $customer_pages = ['customers.php', 'customer_details.php'];
       <a class="nav-link <?php if (in_array($current_page, $storage_pages)) echo 'activemenu'; ?>" href="../Page/storage.php">Kho</a>
       <a class="nav-link <?php if (in_array($current_page, $order_pages)) echo 'activemenu'; ?>" href="../Page/orders.php">Đơn đặt</a>
       <a class="nav-link <?php if (in_array($current_page, $customer_pages)) echo 'activemenu'; ?>" href="../Page/customers.php">Khách hàng</a>
+      <a class="nav-link <?php if (in_array($current_page, ['promotions.php', 'add_promotion.php'])) echo 'activemenu'; ?>" href="../Page/promotions.php">Khuyến mãi</a>
       <?php if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true): ?>
             <div class=" nav-link dropdown">
                 Tài khoản<span class="material-symbols-outlined">arrow_drop_down</span>

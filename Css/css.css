@@ -1229,7 +1229,7 @@ input[type="number"] {
 }
 
 .pagination a {
-    color: #c49a6c;
+    color: goldenrod; 
     padding: 8px 16px;
     text-decoration: none;
     border: 1px solid #ddd;
@@ -1246,4 +1246,161 @@ input[type="number"] {
 
 .pagination a:hover:not(.active) {
     background-color: #f2f2f2;
+}
+/* === TRANG KHUYẾN MÃI === */
+
+/* === CẬP NHẬT GIAO DIỆN TRANG KHUYẾN MÃI === */
+
+/* Cải thiện nút "Thêm Mã Mới" trong header */
+.main-header .btn-primary {
+    display: inline-block;
+    background-color: goldenrod; /* Nền màu nâu vàng đặc trưng */
+    color: white;
+    padding: 15px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 17px;
+    font-weight: bold;
+    cursor: pointer;
+    border: none;
+    transition: background-color 0.3s ease;
+}
+
+.main-header .btn-primary:hover {
+    background-color: #a07d56; /* Màu đậm hơn khi di chuột */
+}
+
+/* Sửa lại nền và giao diện của bảng */
+.tbdonhang.modern {
+    border: none;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.tbdonhang.modern th {
+    color: white;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 16px;
+}
+
+.tbdonhang.modern td {
+    color: goldenrod;
+    vertical-align: middle;
+}
+
+/* Các định dạng khác giữ nguyên */
+.promo-code {
+    font-family: monospace;
+    background-color: #e9ecef;
+    padding: 3px 6px;
+    border-radius: 4px;
+    color: #495057;
+}
+
+.status-badge {
+    padding: 5px 10px;
+    border-radius: 15px;
+    font-size: 12px;
+    font-weight: 600;
+    color: white;
+}
+
+.status-badge.hoat-dong {
+    background-color: #28a745;
+}
+.status-badge.khong-hoat-dong {
+    background-color: #6c757d;
+}
+.status-badge.phan-tram {
+    background-color: #007bff;
+}
+.status-badge.so-tien {
+    background-color: #dc3545;
+}
+
+/* === MODERN ADMIN FORM CONTAINER - BLACK & GOLDENROD THEME === */
+
+.form-container {
+   background: #1a1a1a; /* Nền đen */
+   padding: 30px;
+   border-radius: 8px;
+   box-shadow: 0 4px 12px rgba(0,0,0,0.2); /* Bóng đổ tinh tế hơn */
+   max-width: 700px;
+   margin: 20px auto;
+   color: #f0f0f0; /* Chữ màu xám nhạt */
+   border: 1px solid #333; /* Viền mỏng */
+}
+
+.admin-form .form-group label {
+   display: block;
+   margin-bottom: 2px;
+   font-weight: bold;
+   color: #d4ac0d; /* Màu vàng kim cho label */
+}
+
+.admin-form .form-group input:not([type="radio"]):not([type="checkbox"]),
+.admin-form .form-group select,
+.admin-form .form-group textarea {
+   width: 100%;
+   padding: 12px;
+   border: 1px solid #555; /* Viền đậm hơn */
+   border-radius: 5px;
+   box-sizing: border-box;
+   background-color: #333; /* Nền tối cho input */
+   color: #f0f0f0;
+   transition: border-color 0.3s ease;
+   margin-bottom: 8px;
+}
+
+.admin-form .form-group input:focus,
+.admin-form .form-group select:focus,
+.admin-form .form-group textarea:focus {
+   border-color: #d4ac0d; /* Highlight màu vàng kim khi focus */
+   outline: none;
+   box-shadow: 0 0 5px rgba(212, 172, 13, 0.5); /* Thêm bóng khi focus */
+}
+
+.admin-form .form-group select option {
+   background-color: #333;
+   color: #f0f0f0;
+}
+
+.form-group-buttons {
+   margin-top: 30px;
+   text-align: right;
+}
+
+.form-group-buttons .btn-primary {
+   background-color: goldenrod; /* Nút chính màu vàng kim */
+   color: white; /* Chữ đen trên nền vàng */
+   padding: 12px 25px;
+   border: none;
+   border-radius: 5px;
+   font-weight: bold;
+   cursor: pointer;
+   transition: background-color 0.3s ease;
+}
+
+.form-group-buttons .btn-primary:hover {
+   background-color: #b89208; /* Màu vàng kim đậm hơn khi hover */
+}
+
+.main-header .btn-secondary {
+   background-color: #333; /* Nút quay lại màu xám đậm */
+   color: #f0f0f0;
+   padding: 10px 20px;
+   border-radius: 5px;
+   margin-top: 15px;
+   text-decoration: none;
+   font-size: 14px;
+   font-weight: bold;
+   cursor: pointer;
+   border: none;
+   transition: background-color 0.3s ease;
+}
+
+.main-header .btn-secondary:hover {
+   background-color: #555; /* Màu xám nhạt hơn khi hover */
 }
