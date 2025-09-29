@@ -68,7 +68,7 @@ $conn->close();
 <body>
     <?php include '../PHP/menu_dashboard.php'; ?>
     <div class="main-header" style="padding:130px 50px 0 50px">
-        <h2>Chi Tiết Đơn Hàng #<?php echo $order['idDonHang']; ?></h2>
+        <h2 style="padding-bottom: 15px;">Chi Tiết Đơn Hàng #<?php echo $order['idDonHang']; ?></h2>
         <a href="orders.php" class="btn btn-secondary">Quay Lại Danh Sách</a>
     </div>
 

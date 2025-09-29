@@ -3,7 +3,7 @@ session_start();
 include_once __DIR__ . '/Connect.php';
 
 if (!isset($_GET['id']) || empty($_GET['id'])) {
-    header("Location: ../Admin/promotions.php");
+    header("Location: ../Page/promotions.php");
     exit();
 }
 
@@ -20,6 +20,6 @@ if ($stmt->execute()) {
     $_SESSION['promo_error'] = "Lỗi khi xóa mã khuyến mãi."; // Bạn có thể thêm logic hiển thị lỗi nếu muốn
 }
 
-header("Location: ../Admin/promotions.php");
+header("Location: ../Page/promotions.php");
 exit();
 ?>

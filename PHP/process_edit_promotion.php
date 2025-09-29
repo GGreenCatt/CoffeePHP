@@ -20,7 +20,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if ($stmt->execute()) {
         $_SESSION['promo_success'] = "Đã cập nhật mã khuyến mãi thành công!";
-        header("Location: ../Admin/promotions.php");
+        header("Location: ../Page/promotions.php");
         exit();
     } else {
         echo "Lỗi khi cập nhật mã khuyến mãi: " . $stmt->error;

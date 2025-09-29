@@ -46,7 +46,7 @@ $conn->close();
 
         <div class="dashboard">
              <div class="main-header">
-                <h2>Chi Tiết Khách Hàng</h2>
+                <h2 style="padding-bottom: 15px;">Chi Tiết Khách Hàng</h2>
                 <a style="color: white;" href="customers.php" class="btn btn-secondary">Quay Lại Danh Sách</a>
             </div>
 

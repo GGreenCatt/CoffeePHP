@@ -41,7 +41,7 @@ $product = $result->fetch_assoc();
     <?php include '../PHP/menu_dashboard.php' ?>
 
     <div class="dashboard">
-        <h2>Cập Nhật Sản Phẩm #<?php echo $product['idsanpham']; ?></h2>
+        <h2 style="padding-bottom: 10px;">Cập Nhật Sản Phẩm #<?php echo $product['idsanpham']; ?></h2>
         <form action="../PHP/process_edit_product.php" method="POST" enctype="multipart/form-data">
             <input type="hidden" name="idsanpham" value="<?php echo $product['idsanpham']; ?>">
             
