@@ -1,28 +1,22 @@
 <?php
-// Bắt đầu phiên làm việc để truy cập vào SESSION
+// File: PHP/process_checkout.php (Đã cập nhật)
 session_start();
-
-// Bao gồm tệp kết nối cơ sở dữ liệu
 include_once __DIR__ . '/Connect.php';
 
-// --- BƯỚC 1: KIỂM TRA TÍNH HỢP LỆ CỦA YÊU CẦU ---
 if ($_SERVER['REQUEST_METHOD'] !== 'POST' || !isset($_SESSION['cart']) || empty($_SESSION['cart'])) {
     header('Location: ../index.php');
     exit();
 }
 
-// Bắt đầu một giao dịch để đảm bảo toàn vẹn dữ liệu
 $conn->begin_transaction();
 
 try {
-    // --- BƯỚC 2: THU THẬP DỮ LIỆU ---
     $ho_ten = $_POST['hoten'];
     $sdt = $_POST['sdt'];
     $dia_chi = $_POST['diachi'];
     $cart = $_SESSION['cart'];
     $id_tai_khoan = $_SESSION['id'] ?? NULL;
 
-    // Tính toán lại tổng tiền ở phía server để đảm bảo an toàn
     $tam_tinh = 0;
     foreach ($cart as $item) {
         $tam_tinh += $item['gia'] * $item['soluong'];
@@ -30,7 +24,6 @@ try {
     $phi_ship = 30000;
     $tong_tien = $tam_tinh + $phi_ship;
 
-    // --- BƯỚC 3: LƯU ĐƠN HÀNG VÀO DATABASE ---
     $sql_donhang = "INSERT INTO donhang (idTaiKhoan, TenNguoiNhan, SoDienThoaiNhan, DiaChiNhan, TongTien) VALUES (?, ?, ?, ?, ?)";
     $stmt_donhang = $conn->prepare($sql_donhang);
     $stmt_donhang->bind_param("isssd", $id_tai_khoan, $ho_ten, $sdt, $dia_chi, $tong_tien);
@@ -46,25 +39,53 @@ try {
         $stmt_chitiet->bind_param("iiid", $id_don_hang, $id_san_pham, $so_luong, $don_gia);
         $stmt_chitiet->execute();
     }
+
+    // ===================================================================
+    // === BẮT ĐẦU ĐOẠN CODE MỚI: TRỪ KHO VÀ GHI LỊCH SỬ ===
+    // ===================================================================
+    foreach ($cart as $id_san_pham => $item) {
+        $so_luong_mua = $item['soluong'];
+        $sql_get_congthuc = "SELECT idNguyenLieu, SoLuongTieuHao FROM congthuc WHERE idSanPham = ?";
+        $stmt_get_congthuc = $conn->prepare($sql_get_congthuc);
+        $stmt_get_congthuc->bind_param("i", $id_san_pham);
+        $stmt_get_congthuc->execute();
+        $result_congthuc = $stmt_get_congthuc->get_result();
+
+        while ($nguyen_lieu = $result_congthuc->fetch_assoc()) {
+            $id_nguyen_lieu = $nguyen_lieu['idNguyenLieu'];
+            $tong_sl_tru = $nguyen_lieu['SoLuongTieuHao'] * $so_luong_mua;
+
+            $sql_tru_kho = "UPDATE nguyenlieu SET SoLuongConLai = SoLuongConLai - ? WHERE idNguyenLieu = ?";
+            $stmt_tru_kho = $conn->prepare($sql_tru_kho);
+            $stmt_tru_kho->bind_param("di", $tong_sl_tru, $id_nguyen_lieu);
+            $stmt_tru_kho->execute();
+
+            $sql_get_sl_moi = "SELECT SoLuongConLai FROM nguyenlieu WHERE idNguyenLieu = ?";
+            $stmt_get_sl_moi = $conn->prepare($sql_get_sl_moi);
+            $stmt_get_sl_moi->bind_param("i", $id_nguyen_lieu);
+            $stmt_get_sl_moi->execute();
+            $sl_con_lai_moi = $stmt_get_sl_moi->get_result()->fetch_assoc()['SoLuongConLai'];
+
+            $sql_ghi_lichsu = "INSERT INTO lichsu_trukho (idDonHang, idSanPham, idNguyenLieu, SoLuongDaTru, SoLuongConLaiSauKhiTru) VALUES (?, ?, ?, ?, ?)";
+            $stmt_ghi_lichsu = $conn->prepare($sql_ghi_lichsu);
+            $stmt_ghi_lichsu->bind_param("iiidd", $id_don_hang, $id_san_pham, $id_nguyen_lieu, $tong_sl_tru, $sl_con_lai_moi);
+            $stmt_ghi_lichsu->execute();
+        }
+    }
+    // ===================================================================
+    // === KẾT THÚC ĐOẠN CODE MỚI ===
+    // ===================================================================
     
     $conn->commit();
 
-    // --- BƯỚC 4: DỌN DẸP VÀ CHUYỂN HƯỚNG ---
-    // Xóa giỏ hàng
     unset($_SESSION['cart']);
-
-    // **ĐẶT THÔNG BÁO THÀNH CÔNG VÀO SESSION**
     $_SESSION['order_success'] = "Đặt hàng thành công!";
-    
-    // **CHUYỂN HƯỚNG VỀ TRANG CHỦ**
     header('Location: ../Page/index.php');
     exit();
 
 } catch (mysqli_sql_exception $exception) {
     $conn->rollback();
-    // Ghi log lỗi để debug
     error_log("Lỗi xử lý đơn hàng: " . $exception->getMessage());
-    // Hiển thị thông báo lỗi chung
     die("Đã xảy ra lỗi trong quá trình xử lý đơn hàng. Vui lòng thử lại sau.");
 }
 ?>

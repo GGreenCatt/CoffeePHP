@@ -1012,6 +1012,7 @@ input[type="number"] {
 .tbdonhang tr:first-child{
    background-color: rgba(196,154,98,255);
    color: white;
+   border-radius: 20px;
 }
 .add_product_header{
   padding: 15px;
@@ -1272,10 +1273,8 @@ input[type="number"] {
 
 /* Sửa lại nền và giao diện của bảng */
 .tbdonhang.modern {
-    border: none;
     box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-    border-radius: 8px;
-    overflow: hidden;
+    border-radius: 10px;
 }
 
 .tbdonhang.modern th {
@@ -1350,6 +1349,7 @@ input[type="number"] {
    box-sizing: border-box;
    background-color: #333; /* Nền tối cho input */
    color: #f0f0f0;
+   text-transform: uppercase;
    transition: border-color 0.3s ease;
    margin-bottom: 8px;
 }

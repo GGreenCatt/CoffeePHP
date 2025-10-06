@@ -10,6 +10,7 @@ $result = mysqli_query($conn, $sql);
 <head>
     <meta charset="UTF-8">
     <title>Quản Lý Khuyến Mãi</title>
+    <link rel="icon" type="image/x-icon" href="../Pic/Favicon.png">
     <link rel="stylesheet" href="../Css/css.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
