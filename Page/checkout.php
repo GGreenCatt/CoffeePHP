@@ -122,7 +122,7 @@ $qr_note_hint    = 'Nội dung chuyển khoản: SĐT hoặc Họ tên đặt h�
 
                     <div id="qrWrap" class="qr-wrap">
                       <div class="qr-flex">
-                        <img class="qr-img" src="https://cdn.discordapp.com/attachments/1170416240897040387/1405547036559806535/image.png?ex=689f392f&is=689de7af&hm=d7cb509acc5b3e3e9b775ecc70dc65b297e6b8c69251b19a412e0aa184ad48e3&" alt="QR thanh toán">
+                        <img class="qr-img" src="../Pic/QR.png" alt="QR thanh toán">
                         <div class="qr-info">
                           <p><strong><?php echo htmlspecialchars($qr_bank_label); ?></strong></p>
                           <p>Chủ tài khoản: <strong><?php echo htmlspecialchars($qr_owner_name); ?></strong></p>
