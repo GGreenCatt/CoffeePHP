@@ -2,6 +2,9 @@
 session_start();
 include_once '../PHP/Connect.php';
 
+// Đảm bảo $author luôn có giá trị
+$author = $_SESSION['hoten'] ?? 'ADMIN';
+
 // Kiểm tra quyền admin
 if (!isset($_SESSION['loggedin']) || $_SESSION['chucvu'] !== 'Quản lý') {
     header('Location: ../Page/index.php');
@@ -14,27 +17,76 @@ $error = false;
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $title = $_POST['title'] ?? '';
     $content = $_POST['content'] ?? '';
-    $image_url = $_POST['image_url'] ?? ''; // Tạm thời lấy từ input, sau này có thể là upload file
-    $author = $_SESSION['hoten'] ?? 'ADMIN';
+    $image_url = ''; // Mặc định là rỗng
 
-    if (empty($title) || empty($content)) {
-        $message = "Tiêu đề và nội dung không được để trống.";
-        $error = true;
-    } else {
+    $has_validation_error = false; // Biến tổng thể để theo dõi lỗi
+    $validation_messages = []; // Mảng để thu thập các thông báo lỗi
+
+    // 1. Validate title and content
+    if (empty($title)) {
+        $validation_messages[] = "Tiêu đề bài viết không được để trống.";
+        $has_validation_error = true;
+    }
+    if (empty($content)) {
+        $validation_messages[] = "Nội dung bài viết không được để trống.";
+        $has_validation_error = true;
+    }
+
+    // 2. Handle file upload
+    if (isset($_FILES['image_file']) && $_FILES['image_file']['error'] === UPLOAD_ERR_OK) {
+        $file_tmp_name = $_FILES['image_file']['tmp_name'];
+        $file_name = $_FILES['image_file']['name'];
+        $file_size = $_FILES['image_file']['size'];
+        $file_type = $_FILES['image_file']['type'];
+        $file_ext = strtolower(pathinfo($file_name, PATHINFO_EXTENSION));
+
+        $allowed_extensions = ['jpg', 'jpeg', 'png', 'gif'];
+        $max_file_size = 2 * 1024 * 1024; // 2MB
+
+        if (!in_array($file_ext, $allowed_extensions) || $file_size > $max_file_size) {
+            $validation_messages[] = "File ảnh không hợp lệ (chỉ JPG, PNG, GIF, tối đa 2MB).";
+            $has_validation_error = true;
+        } else {
+            $new_file_name = uniqid('blog_img_', true) . '.' . $file_ext;
+            $upload_path = '../Pic/' . $new_file_name;
+
+            if (move_uploaded_file($file_tmp_name, $upload_path)) {
+                $image_url = $new_file_name;
+            } else {
+                $validation_messages[] = "Lỗi khi di chuyển file ảnh.";
+                $has_validation_error = true;
+            }
+        }
+    } elseif (isset($_FILES['image_file']) && $_FILES['image_file']['error'] !== UPLOAD_ERR_NO_FILE) {
+        // Handle other upload errors (e.g., UPLOAD_ERR_INI_SIZE, UPLOAD_ERR_FORM_SIZE)
+        $validation_messages[] = "Lỗi tải lên file ảnh: " . $_FILES['image_file']['error'];
+        $has_validation_error = true;
+    }
+
+    // 3. If no validation errors, proceed with database insertion
+    if (!$has_validation_error) {
         $sql = "INSERT INTO blog_posts (title, content, image_url, author) VALUES (?, ?, ?, ?)";
         $stmt = $conn->prepare($sql);
-        $stmt->bind_param("ssss", $title, $content, $image_url, $author);
+        if ($stmt) {
+            $stmt->bind_param("ssss", $title, $content, $image_url, $author);
 
-        if ($stmt->execute()) {
-            $message = "Thêm bài viết mới thành công!";
-            // Chuyển hướng về trang quản lý blog sau khi thêm thành công
-            header('Location: admin_blog.php');
-            exit();
+            if ($stmt->execute()) {
+                $_SESSION['message'] = "Thêm bài viết mới thành công!"; // Sử dụng session cho thông báo sau redirect
+                header('Location: admin_blog.php');
+                exit();
+            } else {
+                $message = "Lỗi khi thêm bài viết vào CSDL: " . $conn->error;
+                $error = true; // Set local $error for display on current page
+            }
+            $stmt->close();
         } else {
-            $message = "Lỗi khi thêm bài viết: " . $conn->error;
+            $message = "Lỗi chuẩn bị câu lệnh SQL: " . $conn->error;
             $error = true;
         }
-        $stmt->close();
+    } else {
+        // If there are validation errors, combine them into a single message for display
+        $message = implode('<br>', $validation_messages);
+        $error = true;
     }
 }
 mysqli_close($conn);
@@ -87,14 +139,15 @@ mysqli_close($conn);
             <?php if ($message): ?>
                 <div class="message <?php echo $error ? 'error' : 'success'; ?>"><?php echo $message; ?></div>
             <?php endif; ?>
-            <form action="add_blog_post.php" method="POST">
+            <form action="add_blog_post.php" method="POST" enctype="multipart/form-data">
                 <div class="form-group">
                     <label for="title">Tiêu đề bài viết</label>
                     <input type="text" id="title" name="title" required>
                 </div>
                 <div class="form-group">
-                    <label for="image_url">URL Hình ảnh (ví dụ: 1.jpg, 2.jpg)</label>
-                    <input type="text" id="image_url" name="image_url" placeholder="Nhập tên file ảnh trong thư mục Pic/">
+                    <label for="image_file">Chọn Hình ảnh</label>
+                    <input type="file" id="image_file" name="image_file" accept="image/*">
+                    <small style="color: #aaa;">Chỉ chấp nhận file ảnh (JPG, PNG, GIF). Kích thước tối đa 2MB.</small>
                 </div>
                 <div class="form-group">
                     <label for="content">Nội dung bài viết</label>

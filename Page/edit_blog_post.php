@@ -37,16 +37,46 @@ if ($post_id) {
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && $post_id && $post) {
     $title = $_POST['title'] ?? '';
     $content = $_POST['content'] ?? '';
-    $image_url = $_POST['image_url'] ?? '';
-    // Author không thay đổi khi chỉnh sửa
+    $current_image_url = $post['image_url']; // Lấy ảnh hiện tại từ CSDL
+    $new_image_url = $current_image_url; // Mặc định giữ ảnh cũ
 
-    if (empty($title) || empty($content)) {
-        $message = "Tiêu đề và nội dung không được để trống.";
+    $upload_error = false;
+    if (isset($_FILES['image_file']) && $_FILES['image_file']['error'] === UPLOAD_ERR_OK) {
+        $file_tmp_name = $_FILES['image_file']['tmp_name'];
+        $file_name = $_FILES['image_file']['name'];
+        $file_size = $_FILES['image_file']['size'];
+        $file_ext = strtolower(pathinfo($file_name, PATHINFO_EXTENSION));
+
+        $allowed_extensions = ['jpg', 'jpeg', 'png', 'gif'];
+        $max_file_size = 2 * 1024 * 1024; // 2MB
+
+        if (in_array($file_ext, $allowed_extensions) && $file_size <= $max_file_size) {
+            $unique_file_name = uniqid('blog_img_', true) . '.' . $file_ext;
+            $upload_path = '../Pic/' . $unique_file_name;
+
+            if (move_uploaded_file($file_tmp_name, $upload_path)) {
+                $new_image_url = $unique_file_name;
+                // Xóa ảnh cũ nếu có và khác với ảnh mới
+                if (!empty($current_image_url) && $current_image_url !== $new_image_url && file_exists('../Pic/' . $current_image_url)) {
+                    unlink('../Pic/' . $current_image_url);
+                }
+            } else {
+                $message = "Lỗi khi di chuyển file ảnh mới.";
+                $upload_error = true;
+            }
+        } else {
+            $message = "File ảnh không hợp lệ (chỉ JPG, PNG, GIF, tối đa 2MB).";
+            $upload_error = true;
+        }
+    }
+
+    if (empty($title) || empty($content) || $upload_error) {
+        $message = $message ?: "Tiêu đề và nội dung không được để trống.";
         $error = true;
     } else {
         $sql = "UPDATE blog_posts SET title = ?, content = ?, image_url = ? WHERE id = ?";
         $stmt = $conn->prepare($sql);
-        $stmt->bind_param("sssi", $title, $content, $image_url, $post_id);
+        $stmt->bind_param("sssi", $title, $content, $new_image_url, $post_id);
 
         if ($stmt->execute()) {
             $message = "Cập nhật bài viết thành công!";
@@ -54,7 +84,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $post_id && $post) {
             // Cập nhật lại dữ liệu $post để hiển thị thông tin mới nhất
             $post['title'] = $title;
             $post['content'] = $content;
-            $post['image_url'] = $image_url;
+            $post['image_url'] = $new_image_url;
         } else {
             $message = "Lỗi khi cập nhật bài viết: " . $conn->error;
             $error = true;
@@ -114,14 +144,19 @@ mysqli_close($conn);
             <?php endif; ?>
             
             <?php if ($post): ?>
-                <form action="edit_blog_post.php?id=<?php echo $post['id']; ?>" method="POST">
+            <form action="edit_blog_post.php?id=<?php echo $post['id']; ?>" method="POST" enctype="multipart/form-data">
                     <div class="form-group">
                         <label for="title">Tiêu đề bài viết</label>
                         <input type="text" id="title" name="title" value="<?php echo htmlspecialchars($post['title']); ?>" required>
                     </div>
                     <div class="form-group">
-                        <label for="image_url">URL Hình ảnh (ví dụ: 1.jpg, 2.jpg)</label>
-                        <input type="text" id="image_url" name="image_url" value="<?php echo htmlspecialchars($post['image_url']); ?>" placeholder="Nhập tên file ảnh trong thư mục Pic/">
+                        <label for="image_file">Chọn Hình ảnh Mới (để thay thế)</label>
+                        <input type="file" id="image_file" name="image_file" accept="image/*">
+                        <small style="color: #aaa;">Chỉ chấp nhận file ảnh (JPG, PNG, GIF). Kích thước tối đa 2MB.</small>
+                        <?php if (!empty($post['image_url'])): ?>
+                            <p style="margin-top: 10px;">Ảnh hiện tại:</p>
+                            <img src="../Pic/<?php echo htmlspecialchars($post['image_url']); ?>" alt="Ảnh bài viết" style="max-width: 200px; height: auto; border-radius: 5px; margin-top: 5px;">
+                        <?php endif; ?>
                     </div>
                     <div class="form-group">
                         <label for="content">Nội dung bài viết</label>
