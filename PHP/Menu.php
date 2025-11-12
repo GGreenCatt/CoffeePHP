@@ -103,8 +103,7 @@ $thuc_don_pages = ['coffee.php', 'drinks.php', 'desserts.php', 'snack.php', 'Pro
                         <strong><?php echo htmlspecialchars($_SESSION['hoten']); ?></strong><br>
                         <small><?php echo htmlspecialchars($_SESSION['phone']); ?></small>
                     </div>
-                    <a href="../Page/update_profile.php">Cập nhật thông tin</a>
-                    <a href="../Page/order_history.php">Lịch sử đặt hàng</a>
+                    <a href="../Page/my_account.php">Quản lý tài khoản</a>
                     <a href="../PHP/Logout.php">Đăng xuất</a>
                 </div>
             </div>
@@ -149,8 +148,7 @@ $thuc_don_pages = ['coffee.php', 'drinks.php', 'desserts.php', 'snack.php', 'Pro
                         <strong><?php echo htmlspecialchars($_SESSION['hoten']); ?></strong><br>
                         <small><?php echo htmlspecialchars($_SESSION['phone']); ?></small>
                     </div>
-                    <a href="../Page/update_profile.php">Cập nhật thông tin</a>
-                    <a href="../Page/order_history.php">Lịch sử đặt hàng</a>
+                    <a href="../Page/my_account.php">Quản lý tài khoản</a>
                     <a href="../PHP/Logout.php">Đăng xuất</a>
                 </div>
             </div>
