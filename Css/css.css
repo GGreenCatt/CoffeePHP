@@ -1404,3 +1404,21 @@ input[type="number"] {
 .main-header .btn-secondary:hover {
    background-color: #555; /* Màu xám nhạt hơn khi hover */
 }
+
+/* === Admin Button Styles === */
+.main-header .btn-primary {
+  display: inline-block;
+  background-color: goldenrod;
+  color: white !important; /* Use !important to override conflicting styles */
+  padding: 12px 20px;
+  border-radius: 5px;
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  border: none;
+  transition: background-color 0.3s ease;
+}
+.main-header .btn-primary:hover {
+  background-color: #a07d56;
+}

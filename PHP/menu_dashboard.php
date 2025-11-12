@@ -41,6 +41,7 @@ $customer_pages = ['customers.php', 'customer_details.php'];
       <a class="nav-link <?php if (in_array($current_page, $order_pages)) echo 'activemenu'; ?>" href="../Page/orders.php">Đơn đặt</a>
       <a class="nav-link <?php if (in_array($current_page, $customer_pages)) echo 'activemenu'; ?>" href="../Page/customers.php">Khách hàng</a>
       <a class="nav-link <?php if (in_array($current_page, ['promotions.php', 'add_promotion.php'])) echo 'activemenu'; ?>" href="../Page/promotions.php">Khuyến mãi</a>
+      <a class="nav-link <?php if (in_array($current_page, ['admin_blog.php', 'add_blog_post.php', 'edit_blog_post.php'])) echo 'activemenu'; ?>" href="../Page/admin_blog.php">Blog</a>
       <?php if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true): ?>
             <div class=" nav-link dropdown">
                 Tài khoản<span class="material-symbols-outlined">arrow_drop_down</span>

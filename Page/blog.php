@@ -36,87 +36,37 @@
   </div>
   <!--Blog-->
   <div class="blog">
-    <div class="blogbox">
-      <div class="col">
-        <a href="blog_detail.php?id=1" class="blog-link">
-          <div class="imgbox">
-            <div class="img" style="background-image: url(../Pic/1.jpg);"></div>
-          </div>
-          <div class="text">
-            <p>Tháng 2, 2023 ADMIN</p>
-            <h3>Hành Trình Từ Hạt Cà Phê Đến Tách Cà Phê Đậm Đà</h3>
-            <p>Mỗi tách cà phê bạn thưởng thức tại HIGHBUCKS đều bắt đầu từ một hành trình dài và kỳ công...</p>
-          </div>
-        </a>
-      </div>
-
-      <div class="col">
-        <a href="blog_detail.php?id=2" class="blog-link">
-          <div class="imgbox">
-            <div class="img" style="background-image: url(../Pic/2.jpg);"></div>
-          </div>
-          <div class="text">
-            <p>Tháng 2, 2023 ADMIN</p>
-            <h3>Nghệ Thuật Pha Chế: Bí Quyết Đằng Sau Ly Espresso Hoàn Hảo</h3>
-            <p>Espresso được mệnh danh là 'linh hồn' của mọi loại cà phê. Để tạo ra một ly espresso hoàn hảo...</p>
-          </div>
-        </a>
-      </div>
-
-      <div class="col">
-        <a href="blog_detail.php?id=3" class="blog-link">
-          <div class="imgbox">
-            <div class="img" style="background-image: url(../Pic/3.jpg);"></div>
-          </div>
-          <div class="text">
-            <p>Tháng 2, 2023 ADMIN</p>
-            <h3>Không Gian HIGHBUCKS: Nơi Gặp Gỡ Và Khơi Nguồn Sáng Tạo</h3>
-            <p>Chúng tôi tin rằng một quán cà phê không chỉ là nơi để uống. Đó là một không gian để gặp gỡ bạn bè...</p>
-          </div>
-        </a>
-      </div>
-    </div>
-
-    <div class="blogbox">
-      <div class="col">
-        <a href="blog_detail.php?id=4" class="blog-link">
-          <div class="imgbox">
-            <div class="img" style="background-image: url(../Pic/4.jpg);"></div>
-          </div>
-          <div class="text">
-            <p>Tháng 3, 2023 ADMIN</p>
-            <h3>Cách Nhận Biết Cà Phê Sạch Và Nguyên Chất</h3>
-            <p>Làm thế nào để phân biệt cà phê thật và cà phê pha tạp? Cùng HIGHBUCKS tìm hiểu một vài mẹo nhỏ...</p>
-          </div>
-        </a>
-      </div>
-
-      <div class="col">
-        <a href="blog_detail.php?id=5" class="blog-link">
-          <div class="imgbox">
-            <div class="img" style="background-image: url(../Pic/5.jpg);"></div>
-          </div>
-          <div class="text">
-            <p>Tháng 3, 2023 ADMIN</p>
-            <h3>Thế Giới Bánh Ngọt Tại HIGHBUCKS</h3>
-            <p>Khám phá thực đơn bánh ngọt đa dạng, được làm thủ công mỗi ngày từ những nguyên liệu tươi ngon nhất...</p>
-          </div>
-        </a>
-      </div>
-
-      <div class="col">
-        <a href="blog_detail.php?id=6" class="blog-link">
-          <div class="imgbox">
-            <div class="img" style="background-image: url(../Pic/6.jpg);"></div>
-          </div>
-          <div class="text">
-            <p>Tháng 4, 2023 ADMIN</p>
-            <h3>Món Ăn Vặt Hoàn Hảo Cho Buổi Chiều</h3>
-            <p>Từ khô gà lá chanh đến cơm cháy giòn rụm, đâu là món ăn vặt được yêu thích nhất tại quán?...</p>
-          </div>
-        </a>
-      </div>
-    </div>
+    <?php
+    include_once '../PHP/Connect.php';
+    $sql = "SELECT id, title, image_url, author, created_at, SUBSTRING(content, 1, 150) as content_preview FROM blog_posts ORDER BY created_at DESC";
+    $result = mysqli_query($conn, $sql);
+    $post_count = 0;
+    if (mysqli_num_rows($result) > 0) {
+        echo '<div class="blogbox">'; // Mở blogbox đầu tiên
+        while ($post = mysqli_fetch_assoc($result)) {
+            echo '<div class="col">';
+            echo '<a href="blog_detail.php?id=' . $post['id'] . '" class="blog-link">';
+            echo '<div class="imgbox">';
+            echo '<div class="img" style="background-image: url(../Pic/' . htmlspecialchars($post['image_url']) . ');"></div>';
+            echo '</div>';
+            echo '<div class="text">';
+            echo '<p>' . date('F Y', strtotime($post['created_at'])) . ' ' . htmlspecialchars($post['author']) . '</p>';
+            echo '<h3>' . htmlspecialchars($post['title']) . '</h3>';
+            echo '<p>' . htmlspecialchars($post['content_preview']) . '...</p>';
+            echo '</div>';
+            echo '</a>';
+            echo '</div>';
+            $post_count++;
+            if ($post_count % 3 == 0) {
+                echo '</div><div class="blogbox">'; // Đóng blogbox hiện tại và mở cái mới sau mỗi 3 bài
+            }
+        }
+        echo '</div>'; // Đóng blogbox cuối cùng
+    } else {
+        echo '<p style="text-align: center; width: 100%; color: #ccc;">Chưa có bài viết nào.</p>';
+    }
+    mysqli_close($conn);
+    ?>
 
     <div class="pagination">
       <a href="#">&laquo;</a>
