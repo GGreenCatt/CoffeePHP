@@ -424,3 +424,20 @@ margin-right: auto;
     background: #125688;
     color: white;
   }
+
+/* Blog Link Styles */
+.blog-link {
+  text-decoration: none; /* Remove underline */
+  color: inherit; /* Inherit color from parent, which is #ccc or white */
+  display: block; /* Make the entire card clickable */
+  transition: all 0.3s ease; /* Smooth transition for hover effects */
+}
+
+.blog-link:hover {
+  transform: translateY(-5px); /* Slight lift effect on hover */
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2); /* Add shadow on hover */
+}
+
+.blog-link:hover .text h3 {
+  color: #c49b63; /* Change title color on hover */
+}
