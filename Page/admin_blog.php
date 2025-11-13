@@ -9,7 +9,7 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['chucvu'] !== 'Quản lý') {
 }
 
 // Lấy danh sách bài viết từ CSDL
-$sql = "SELECT id, title, author, created_at FROM blog_posts ORDER BY created_at DESC";
+$sql = "SELECT id, title, author, created_at FROM blog_posts ORDER BY created_at";
 $result = mysqli_query($conn, $sql);
 $posts = [];
 if ($result) {
@@ -56,7 +56,6 @@ mysqli_close($conn);
 
         <?php if (!empty($posts)): ?>
             <table class="tbdonhang">
-                <thead>
                     <tr>
                         <th>ID</th>
                         <th>Tiêu đề</th>
@@ -64,8 +63,6 @@ mysqli_close($conn);
                         <th>Ngày đăng</th>
                         <th>Hành động</th>
                     </tr>
-                </thead>
-                <tbody>
                     <?php foreach ($posts as $post): ?>
                         <tr>
                             <td><?php echo htmlspecialchars($post['id']); ?></td>
@@ -79,7 +76,6 @@ mysqli_close($conn);
                             </td>
                         </tr>
                     <?php endforeach; ?>
-                </tbody>
             </table>
         <?php else: ?>
             <p class="no-posts">Chưa có bài viết nào. Hãy thêm bài viết đầu tiên của bạn!</p>
