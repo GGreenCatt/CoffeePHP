@@ -39,6 +39,7 @@ $customer_pages = ['customers.php', 'customer_details.php'];
       </div>
 
       <a class="nav-link <?php if (in_array($current_page, $order_pages)) echo 'activemenu'; ?>" href="../Page/orders.php">Đơn đặt</a>
+      <a class="nav-link <?php if ($current_page == 'admin_bookings.php') echo 'activemenu'; ?>" href="../Page/admin_bookings.php">Quản lý đặt bàn</a>
       <a class="nav-link <?php if (in_array($current_page, $customer_pages)) echo 'activemenu'; ?>" href="../Page/customers.php">Khách hàng</a>
       <a class="nav-link <?php if (in_array($current_page, ['promotions.php', 'add_promotion.php'])) echo 'activemenu'; ?>" href="../Page/promotions.php">Khuyến mãi</a>
       <a class="nav-link <?php if (in_array($current_page, ['admin_blog.php', 'add_blog_post.php', 'edit_blog_post.php'])) echo 'activemenu'; ?>" href="../Page/admin_blog.php">Blog</a>

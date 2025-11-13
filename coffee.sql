@@ -180,3 +180,18 @@ INSERT INTO `taikhoan` (`idTaiKhoan`, `HoTen`, `sdt`, `MatKhau`, `DiaChi`, `Chuc
 /*!40014 SET FOREIGN_KEY_CHECKS=IFNULL(@OLD_FOREIGN_KEY_CHECKS, 1) */;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40111 SET SQL_NOTES=IFNULL(@OLD_SQL_NOTES, 1) */;
+
+-- Dumping structure for table coffee.datban
+CREATE TABLE IF NOT EXISTS datban (
+  id int NOT NULL AUTO_INCREMENT,
+  HoTen varchar(255) NOT NULL,
+  sdt varchar(11) NOT NULL,
+  SoNguoi int NOT NULL,
+  NgayDat date NOT NULL,
+  GioDat time NOT NULL,
+  GhiChu text,
+  TrangThai varchar(255) DEFAULT 'Ð?i xác nh?n',
+  ThoiGianTao datetime DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
