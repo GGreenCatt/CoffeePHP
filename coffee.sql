@@ -25,7 +25,7 @@ CREATE TABLE IF NOT EXISTS `blog_posts` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table coffee.blog_posts: ~0 rows (approximately)
+-- Dumping data for table coffee.blog_posts: ~8 rows (approximately)
 INSERT INTO `blog_posts` (`id`, `title`, `content`, `image_url`, `author`, `created_at`) VALUES
 	(1, 'Hành Trình Từ Hạt Cà Phê Đến Tách Cà Phê Đậm Đà', 'Mỗi tách cà phê bạn thưởng thức tại HIGHBUCKS đều bắt đầu từ một hành trình dài và kỳ công. Chúng tôi lựa chọn những hạt cà phê Arabica và Robusta chất lượng nhất từ những vùng cao nguyên trứ danh của Việt Nam. Hạt cà phê được hái chín, lựa chọn cẩn thận và sơ chế theo quy trình nghiêm ngặt để giữ lại hương vị nguyên bản.\n\nTại xưởng rang của chúng tôi, những người thợ rang tài hoa sẽ biến những hạt cà phê xanh thành những hạt nâu bóng, tỏa hương thơm nồng nàn. Quá trình rang được kiểm soát nhiệt độ và thời gian một cách chính xác để phát triển tối đa tiềm năng hương vị của từng loại hạt. Cuối cùng, các barista chuyên nghiệp của chúng tôi sẽ xay và pha chế để tạo ra những tách cà phê đậm đà, đánh thức mọi giác quan của bạn.', '1.jpg', 'ADMIN', '2025-11-12 14:02:12'),
 	(2, 'Nghệ Thuật Pha Chế: Bí Quyết Đằng Sau Ly Espresso Hoàn Hảo', 'Espresso được mệnh danh là \'linh hồn\' của mọi loại cà phê. Để tạo ra một ly espresso hoàn hảo, không chỉ cần hạt cà phê ngon mà còn đòi hỏi kỹ thuật và sự chính xác tuyệt đối. Barista của chúng tôi phải điều chỉnh độ mịn của bột cà phê, lực nén, nhiệt độ nước và áp suất máy pha một cách hoàn hảo.\n\nMột shot espresso chuẩn phải có lớp crema màu caramel dày mịn ở trên, vị đắng đậm nhưng không gắt, xen lẫn vị chua thanh và hậu vị ngọt ngào. Đó là kết quả của sự cân bằng giữa khoa học và nghệ thuật, một niềm đam mê mà chúng tôi luôn theo đuổi mỗi ngày.', '2.jpg', 'ADMIN', '2025-11-12 14:02:12'),
@@ -44,9 +44,9 @@ CREATE TABLE IF NOT EXISTS `chitietdonhang` (
   `SoLuong` int DEFAULT NULL,
   `DonGia` decimal(10,0) DEFAULT NULL,
   PRIMARY KEY (`idChiTiet`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table coffee.chitietdonhang: ~12 rows (approximately)
+-- Dumping data for table coffee.chitietdonhang: ~15 rows (approximately)
 INSERT INTO `chitietdonhang` (`idChiTiet`, `idDonHang`, `idSanPham`, `SoLuong`, `DonGia`) VALUES
 	(1, 1, 4, 1, 25000),
 	(2, 2, 3, 1, 25000),
@@ -59,7 +59,28 @@ INSERT INTO `chitietdonhang` (`idChiTiet`, `idDonHang`, `idSanPham`, `SoLuong`, 
 	(9, 6, 17, 1, 15000),
 	(10, 6, 18, 2, 15000),
 	(11, 6, 10, 1, 20000),
-	(12, 6, 26, 1, 20000);
+	(12, 6, 26, 1, 20000),
+	(25, 13, 3, 2, 25000),
+	(26, 13, 2, 2, 25000),
+	(27, 14, 2, 1, 25000);
+
+-- Dumping structure for table coffee.datban
+CREATE TABLE IF NOT EXISTS `datban` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `HoTen` varchar(255) NOT NULL,
+  `sdt` varchar(11) NOT NULL,
+  `SoNguoi` int NOT NULL,
+  `NgayDat` date NOT NULL,
+  `GioDat` time NOT NULL,
+  `GhiChu` text,
+  `TrangThai` varchar(255) DEFAULT 'Đợi xác nhận',
+  `ThoiGianTao` datetime DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- Dumping data for table coffee.datban: ~0 rows (approximately)
+INSERT INTO `datban` (`id`, `HoTen`, `sdt`, `SoNguoi`, `NgayDat`, `GioDat`, `GhiChu`, `TrangThai`, `ThoiGianTao`) VALUES
+	(1, 'Long', '123456789', 2, '2025-12-11', '21:00:00', '', 'Đợi xác nhận', '2025-11-13 10:41:30');
 
 -- Dumping structure for table coffee.donhang
 CREATE TABLE IF NOT EXISTS `donhang` (
@@ -72,16 +93,18 @@ CREATE TABLE IF NOT EXISTS `donhang` (
   `TongTien` decimal(10,0) DEFAULT NULL,
   `TrangThai` varchar(255) DEFAULT 'Đợi xác nhận',
   PRIMARY KEY (`idDonHang`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table coffee.donhang: ~6 rows (approximately)
+-- Dumping data for table coffee.donhang: ~8 rows (approximately)
 INSERT INTO `donhang` (`idDonHang`, `idTaiKhoan`, `TenNguoiNhan`, `SoDienThoaiNhan`, `DiaChiNhan`, `NgayDat`, `TongTien`, `TrangThai`) VALUES
 	(1, NULL, 'Nguyễn Văn Bảo Long', '35253253', '2312312312', '2025-07-13 18:46:23', 55000, 'Đợi xác nhận'),
 	(2, NULL, 'Lê Mỹ Dung', '35253253', 'adadadad', '2025-07-13 18:53:40', 55000, 'Đợi xác nhận'),
 	(3, NULL, 'Lê Mỹ Dung', '312312312', '1313131', '2025-07-13 18:56:39', 55000, 'Đã hoàn thành'),
 	(4, NULL, 'Lê Mỹ Dung', '01234567', 'nhà', '2025-07-13 19:13:24', 155000, 'Đã hoàn thành'),
 	(5, 2, 'Lê Mỹ Dung', '0769226116', 'aaaaaaaa', '2025-07-16 16:32:24', 305000, 'Đã hoàn thành'),
-	(6, NULL, 'Quản lý', '01234567', 'adadadad', '2025-07-21 19:27:58', 140000, 'Đã hoàn thành');
+	(6, NULL, 'Quản lý', '01234567', 'adadadad', '2025-07-21 19:27:58', 140000, 'Đã hoàn thành'),
+	(13, NULL, 'Lê Mỹ Dung', '01234567', 'aaaaaaaa', '2025-11-13 15:50:45', 130000, 'Chờ thanh toán QR'),
+	(14, NULL, 'ădawda', 'adad', 'ưdadad', '2025-11-13 15:57:53', 55000, 'Chờ thanh toán QR');
 
 -- Dumping structure for table coffee.khuyenmai
 CREATE TABLE IF NOT EXISTS `khuyenmai` (
@@ -180,18 +203,3 @@ INSERT INTO `taikhoan` (`idTaiKhoan`, `HoTen`, `sdt`, `MatKhau`, `DiaChi`, `Chuc
 /*!40014 SET FOREIGN_KEY_CHECKS=IFNULL(@OLD_FOREIGN_KEY_CHECKS, 1) */;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40111 SET SQL_NOTES=IFNULL(@OLD_SQL_NOTES, 1) */;
-
--- Dumping structure for table coffee.datban
-CREATE TABLE IF NOT EXISTS datban (
-  id int NOT NULL AUTO_INCREMENT,
-  HoTen varchar(255) NOT NULL,
-  sdt varchar(11) NOT NULL,
-  SoNguoi int NOT NULL,
-  NgayDat date NOT NULL,
-  GioDat time NOT NULL,
-  GhiChu text,
-  TrangThai varchar(255) DEFAULT '�?i x�c nh?n',
-  ThoiGianTao datetime DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (id)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
