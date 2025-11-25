@@ -102,11 +102,6 @@ $result = $stmt->get_result();
                 <?php endif; ?>
         </table>
     </div>
-    <?php
-    if (isset($_SESSION['update_status_success'])) {
-        echo "<script>Swal.fire({toast: true, position: 'top-end', icon: 'success', title: '" . addslashes($_SESSION['update_status_success']) . "', showConfirmButton: false, timer: 2000});</script>";
-        unset($_SESSION['update_status_success']);
-    }
-    ?>
+    
 </body>
 </html>

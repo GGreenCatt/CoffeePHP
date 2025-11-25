@@ -41,7 +41,7 @@ try {
     }
 
     // ===================================================================
-    // === BẮT ĐẦU ĐOẠN CODE MỚI: TRỪ KHO VÀ GHI LỊCH SỬ ===
+    // === BẮT ĐẦU ĐOẠN CODE MỚI: TRỪ KHO VÀ GHI LỊCH SỬ HỢP NHẤT ===
     // ===================================================================
     foreach ($cart as $id_san_pham => $item) {
         $so_luong_mua = $item['soluong'];
@@ -53,24 +53,35 @@ try {
 
         while ($nguyen_lieu = $result_congthuc->fetch_assoc()) {
             $id_nguyen_lieu = $nguyen_lieu['idNguyenLieu'];
-            $tong_sl_tru = $nguyen_lieu['SoLuongTieuHao'] * $so_luong_mua;
+            $so_luong_tieu_hao = $nguyen_lieu['SoLuongTieuHao'] * $so_luong_mua;
 
-            $sql_tru_kho = "UPDATE nguyenlieu SET SoLuongConLai = SoLuongConLai - ? WHERE idNguyenLieu = ?";
-            $stmt_tru_kho = $conn->prepare($sql_tru_kho);
-            $stmt_tru_kho->bind_param("di", $tong_sl_tru, $id_nguyen_lieu);
-            $stmt_tru_kho->execute();
+            // Lấy số lượng trước khi cập nhật
+            $stmt_get_before = $conn->prepare("SELECT SoLuongConLai FROM nguyenlieu WHERE idNguyenLieu = ? FOR UPDATE");
+            $stmt_get_before->bind_param("i", $id_nguyen_lieu);
+            $stmt_get_before->execute();
+            $so_luong_truoc = $stmt_get_before->get_result()->fetch_assoc()['SoLuongConLai'];
+            $stmt_get_before->close();
 
-            $sql_get_sl_moi = "SELECT SoLuongConLai FROM nguyenlieu WHERE idNguyenLieu = ?";
-            $stmt_get_sl_moi = $conn->prepare($sql_get_sl_moi);
-            $stmt_get_sl_moi->bind_param("i", $id_nguyen_lieu);
-            $stmt_get_sl_moi->execute();
-            $sl_con_lai_moi = $stmt_get_sl_moi->get_result()->fetch_assoc()['SoLuongConLai'];
+            // Cập nhật kho
+            $sql_update = "UPDATE nguyenlieu SET SoLuongConLai = SoLuongConLai - ? WHERE idNguyenLieu = ?";
+            $stmt_update = $conn->prepare($sql_update);
+            $stmt_update->bind_param("di", $so_luong_tieu_hao, $id_nguyen_lieu);
+            $stmt_update->execute();
+            $stmt_update->close();
 
-            $sql_ghi_lichsu = "INSERT INTO lichsu_trukho (idDonHang, idSanPham, idNguyenLieu, SoLuongDaTru, SoLuongConLaiSauKhiTru) VALUES (?, ?, ?, ?, ?)";
-            $stmt_ghi_lichsu = $conn->prepare($sql_ghi_lichsu);
-            $stmt_ghi_lichsu->bind_param("iiidd", $id_don_hang, $id_san_pham, $id_nguyen_lieu, $tong_sl_tru, $sl_con_lai_moi);
-            $stmt_ghi_lichsu->execute();
+            // Ghi vào lịch sử hợp nhất
+            $so_luong_sau = $so_luong_truoc - $so_luong_tieu_hao;
+            $hanh_dong_text = 'Xuất kho (Bán hàng)';
+            $ly_do = "Đơn hàng #" . $id_don_hang;
+
+            $sql_log = "INSERT INTO lichsu_tonkho (idDonHang, idSanPham, idNguyenLieu, idNguoiThucHien, HanhDong, SoLuong, SoLuongTruoc, SoLuongSau, LyDo) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            $stmt_log = $conn->prepare($sql_log);
+            // idNguoiThucHien ở đây là id khách hàng, có thể là NULL
+            $stmt_log->bind_param("iiiisddds", $id_don_hang, $id_san_pham, $id_nguyen_lieu, $id_tai_khoan, $hanh_dong_text, $so_luong_tieu_hao, $so_luong_truoc, $so_luong_sau, $ly_do);
+            $stmt_log->execute();
+            $stmt_log->close();
         }
+        $stmt_get_congthuc->close();
     }
     // ===================================================================
     // === KẾT THÚC ĐOẠN CODE MỚI ===

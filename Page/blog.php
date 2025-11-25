@@ -68,7 +68,7 @@
     mysqli_close($conn);
     ?>
 
-    <div class="pagination">
+    <div class="pagination" style="display: none;">
       <a href="#">&laquo;</a>
       <a href="#" class="active">1</a>
       <a href="#">2</a>

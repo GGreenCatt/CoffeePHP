@@ -2,8 +2,8 @@
 session_start();
 include_once '../PHP/Connect.php';
 
-$sql = "SELECT 
-            ls.ThoiGian, 
+$sql = "SELECT
+            ls.ThoiGian,
             nl.TenNguyenLieu,
             tk.HoTen AS NguoiThucHien,
             ls.HanhDong,
@@ -14,8 +14,7 @@ $sql = "SELECT
         FROM lichsu_tonkho ls
         JOIN nguyenlieu nl ON ls.idNguyenLieu = nl.idNguyenLieu
         LEFT JOIN taikhoan tk ON ls.idNguoiThucHien = tk.idTaiKhoan
-        ORDER BY ls.ThoiGian DESC";
-$result = $conn->query($sql);
+        ORDER BY ls.ThoiGian DESC";$result = $conn->query($sql);
 ?>
 <!DOCTYPE html>
 <html lang="vi">

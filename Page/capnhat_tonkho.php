@@ -55,5 +55,32 @@ $nguyenlieus = $conn->query("SELECT idNguyenLieu, TenNguyenLieu, DonViTinh FROM 
             </form>
         </div>
     </div>
+    <?php
+    if (isset($_SESSION['update_status_success'])) {
+        echo "<script>
+            Swal.fire({
+                toast: true,
+                position: 'top-end',
+                icon: 'success',
+                title: '" . addslashes($_SESSION['update_status_success']) . "',
+                showConfirmButton: false,
+                timer: 2000,
+                timerProgressBar: true
+            });
+        </script>";
+        unset($_SESSION['update_status_success']);
+    }
+
+    if (isset($_SESSION['update_status_error'])) {
+        echo "<script>
+            Swal.fire({
+                icon: 'error',
+                title: 'Thao tác thất bại',
+                text: '" . addslashes($_SESSION['update_status_error']) . "'
+            });
+        </script>";
+        unset($_SESSION['update_status_error']);
+    }
+    ?>
 </body>
 </html>
