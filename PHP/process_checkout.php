@@ -21,8 +21,24 @@ try {
     foreach ($cart as $item) {
         $tam_tinh += $item['gia'] * $item['soluong'];
     }
+
+    $giam_gia = 0;
+    if (isset($_SESSION['promo']) && is_array($_SESSION['promo'])) {
+        if (isset($_SESSION['promo']['loai']) && isset($_SESSION['promo']['gia_tri'])) {
+            $loai = $_SESSION['promo']['loai'];
+            $gia_tri = $_SESSION['promo']['gia_tri'];
+            
+            if ($loai == 'phantram') {
+                $giam_gia = $tam_tinh * ($gia_tri / 100);
+            } else {
+                $giam_gia = $gia_tri;
+            }
+        }
+    }
+
     $phi_ship = 30000;
-    $tong_tien = $tam_tinh + $phi_ship;
+    $tong_tien = $tam_tinh + $phi_ship - $giam_gia;
+    if ($tong_tien < 0) $tong_tien = 0;
 
     $sql_donhang = "INSERT INTO donhang (idTaiKhoan, TenNguoiNhan, SoDienThoaiNhan, DiaChiNhan, TongTien) VALUES (?, ?, ?, ?, ?)";
     $stmt_donhang = $conn->prepare($sql_donhang);
@@ -90,6 +106,7 @@ try {
     $conn->commit();
 
     unset($_SESSION['cart']);
+    unset($_SESSION['promo']); // Xóa thông tin giảm giá sau khi đặt hàng thành công
     $_SESSION['order_success'] = "Đặt hàng thành công!";
     header('Location: ../Page/index.php');
     exit();

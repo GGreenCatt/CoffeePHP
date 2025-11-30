@@ -53,7 +53,9 @@ if ($result->num_rows > 0) {
     // Lưu thông tin giảm giá vào session
     $_SESSION['promo'] = [
         'code' => $promo['MaCode'],
-        'giam_gia' => $giam_gia
+        'loai' => strtolower($promo['LoaiGiamGia']), // Chuyển thành chữ thường 'phantram' hoặc 'sotien'
+        'gia_tri' => $promo['GiaTri'],
+        'giam_gia' => $giam_gia // Lưu số tiền giảm cụ thể để dùng ngay nếu cần
     ];
 
     $response['success'] = true;

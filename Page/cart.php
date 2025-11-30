@@ -2,9 +2,6 @@
 // Bắt đầu phiên làm việc để truy cập giỏ hàng
 session_start();
 
-// Xóa mã giảm giá cũ khi người dùng vào lại trang giỏ hàng để họ có thể nhập mã mới
-unset($_SESSION['promo']);
-
 // Lấy giỏ hàng từ session, hoặc tạo mảng rỗng nếu chưa có
 $cart = $_SESSION['cart'] ?? [];
 

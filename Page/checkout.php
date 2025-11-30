@@ -20,7 +20,23 @@ foreach ($cart as $item) {
     $total_quantity += $item['soluong'];
     $tam_tinh += $item['gia'] * $item['soluong'];
 }
+
+// Kiểm tra và áp dụng giảm giá nếu có trong session
+if (isset($_SESSION['promo']) && is_array($_SESSION['promo'])) {
+    if (isset($_SESSION['promo']['loai']) && isset($_SESSION['promo']['gia_tri'])) {
+        $loai_giam_gia = $_SESSION['promo']['loai'];
+        $gia_tri_giam = $_SESSION['promo']['gia_tri'];
+
+        if ($loai_giam_gia == 'phantram') {
+            $giam_gia = $tam_tinh * ($gia_tri_giam / 100);
+        } else {
+            $giam_gia = $gia_tri_giam;
+        }
+    }
+}
+
 $tong_cong = $tam_tinh + $phi_ship - $giam_gia;
+if ($tong_cong < 0) $tong_cong = 0;
 
 /* ====== Cấu hình QR chuyển khoản (bạn sửa cho phù hợp) ====== */
 $qr_image_path   = '../Pic/QR.png'; // <-- ĐƯỜNG DẪN ẢNH QR CỦA BẠN
@@ -174,6 +190,9 @@ $qr_note_hint    = 'Nội dung chuyển khoản: SĐT hoặc Họ tên đặt h�
             
             <p>Tạm tính <span class="price"><?php echo number_format($tam_tinh, 0, ',', '.'); ?> VNĐ</span></p>
             <p>Phí vận chuyển <span class="price"><?php echo number_format($phi_ship, 0, ',', '.'); ?> VNĐ</span></p>
+            <?php if ($giam_gia > 0): ?>
+              <p>Giảm giá <span class="price">- <?php echo number_format($giam_gia, 0, ',', '.'); ?> VNĐ</span></p>
+            <?php endif; ?>
             <hr>
             <p>Tổng cộng <span class="price" style="color:black"><b><?php echo number_format($tong_cong, 0, ',', '.'); ?> VNĐ</b></span></p>
           </div>
