@@ -110,7 +110,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 </div>
                 <nav class="account-nav">
                     <a href="my_account.php"><span class="material-symbols-outlined">dashboard</span> Tổng quan</a>
-                    <a href="order_history.php"><span class="material-symbols-outlined">receipt_long</span> Lịch sử đơn hàng</a>
                     <a href="update_profile.php"><span class="material-symbols-outlined">edit</span> Cập nhật thông tin</a>
                     <a href="change_password.php" class="active"><span class="material-symbols-outlined">lock</span> Đổi mật khẩu</a>
                     <a href="../PHP/Logout.php"><span class="material-symbols-outlined">logout</span> Đăng xuất</a>

@@ -16,9 +16,9 @@ if (isset($_GET['id'])) {
     $stmt->bind_param("i", $post_id);
 
     if ($stmt->execute()) {
-        $_SESSION['message'] = "Bài viết đã được xóa thành công!";
+        $_SESSION['blog_success'] = "Bài viết đã được xóa thành công!";
     } else {
-        $_SESSION['error'] = "Lỗi khi xóa bài viết: " . $conn->error;
+        $_SESSION['blog_error'] = "Lỗi khi xóa bài viết: " . $conn->error;
     }
     $stmt->close();
 }

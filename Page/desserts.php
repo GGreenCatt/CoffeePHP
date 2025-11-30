@@ -22,6 +22,8 @@
   <title>HIGHBUCKS</title>
   <link rel="icon" type="image/x-icon" href="../Pic/Favicon.png">
   <link rel="stylesheet" href="../Css/desserts.css">
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 <body>

@@ -51,6 +51,7 @@ $customer_pages = ['customers.php', 'customer_details.php'];
                         <strong><?php echo htmlspecialchars($_SESSION['hoten']); ?></strong><br>
                         <small><?php echo htmlspecialchars($_SESSION['phone']); ?></small>
                     </div>
+                    <a href="../Page/index.php">Xem trang khách</a>
                     <a href="../Page/update_profile.php">Cập nhật thông tin</a>
                     <a href="../PHP/Logout.php">Đăng xuất</a>
                 </div>

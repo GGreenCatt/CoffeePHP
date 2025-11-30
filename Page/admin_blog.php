@@ -72,7 +72,7 @@ mysqli_close($conn);
                             <td class="action-links">
                                 <a href="blog_detail.php?id=<?php echo $post['id']; ?>" target="_blank">Xem</a>
                                 <a href="edit_blog_post.php?id=<?php echo $post['id']; ?>">Sửa</a>
-                                <a href="#" onclick="confirmDelete(<?php echo $post['id']; ?>)">Xóa</a>
+                                <a href="javascript:void(0);" onclick="confirmDelete(<?php echo $post['id']; ?>)">Xóa</a>
                             </td>
                         </tr>
                     <?php endforeach; ?>
@@ -102,5 +102,18 @@ mysqli_close($conn);
             })
         }
     </script>
+
+    <?php
+    // Hiển thị thông báo thành công
+    if (isset($_SESSION['blog_success'])) {
+        echo "<script>Swal.fire({toast: true, position: 'top-end', icon: 'success', title: '" . addslashes($_SESSION['blog_success']) . "', showConfirmButton: false, timer: 2000});</script>";
+        unset($_SESSION['blog_success']);
+    }
+    // Hiển thị thông báo lỗi
+    if (isset($_SESSION['blog_error'])) {
+        echo "<script>Swal.fire({icon: 'error', title: 'Lỗi', text: '" . addslashes($_SESSION['blog_error']) . "'});</script>";
+        unset($_SESSION['blog_error']);
+    }
+    ?>
 </body>
 </html>

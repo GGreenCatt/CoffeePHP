@@ -1,95 +1,10 @@
 <?php
 session_start();
-include_once '../PHP/Connect.php';
-
-// Đảm bảo $author luôn có giá trị
-$author = $_SESSION['hoten'] ?? 'ADMIN';
-
 // Kiểm tra quyền admin
 if (!isset($_SESSION['loggedin']) || $_SESSION['chucvu'] !== 'Quản lý') {
     header('Location: ../Page/index.php');
     exit();
 }
-
-$message = '';
-$error = false;
-
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $title = $_POST['title'] ?? '';
-    $content = $_POST['content'] ?? '';
-    $image_url = ''; // Mặc định là rỗng
-
-    $has_validation_error = false; // Biến tổng thể để theo dõi lỗi
-    $validation_messages = []; // Mảng để thu thập các thông báo lỗi
-
-    // 1. Validate title and content
-    if (empty($title)) {
-        $validation_messages[] = "Tiêu đề bài viết không được để trống.";
-        $has_validation_error = true;
-    }
-    if (empty($content)) {
-        $validation_messages[] = "Nội dung bài viết không được để trống.";
-        $has_validation_error = true;
-    }
-
-    // 2. Handle file upload
-    if (isset($_FILES['image_file']) && $_FILES['image_file']['error'] === UPLOAD_ERR_OK) {
-        $file_tmp_name = $_FILES['image_file']['tmp_name'];
-        $file_name = $_FILES['image_file']['name'];
-        $file_size = $_FILES['image_file']['size'];
-        $file_type = $_FILES['image_file']['type'];
-        $file_ext = strtolower(pathinfo($file_name, PATHINFO_EXTENSION));
-
-        $allowed_extensions = ['jpg', 'jpeg', 'png', 'gif'];
-        $max_file_size = 2 * 1024 * 1024; // 2MB
-
-        if (!in_array($file_ext, $allowed_extensions) || $file_size > $max_file_size) {
-            $validation_messages[] = "File ảnh không hợp lệ (chỉ JPG, PNG, GIF, tối đa 2MB).";
-            $has_validation_error = true;
-        } else {
-            $new_file_name = uniqid('blog_img_', true) . '.' . $file_ext;
-            $upload_path = '../Pic/' . $new_file_name;
-
-            if (move_uploaded_file($file_tmp_name, $upload_path)) {
-                $image_url = $new_file_name;
-            } else {
-                $validation_messages[] = "Lỗi khi di chuyển file ảnh.";
-                $has_validation_error = true;
-            }
-        }
-    } elseif (isset($_FILES['image_file']) && $_FILES['image_file']['error'] !== UPLOAD_ERR_NO_FILE) {
-        // Handle other upload errors (e.g., UPLOAD_ERR_INI_SIZE, UPLOAD_ERR_FORM_SIZE)
-        $validation_messages[] = "Lỗi tải lên file ảnh: " . $_FILES['image_file']['error'];
-        $has_validation_error = true;
-    }
-
-    // 3. If no validation errors, proceed with database insertion
-    if (!$has_validation_error) {
-        $sql = "INSERT INTO blog_posts (title, content, image_url, author) VALUES (?, ?, ?, ?)";
-        $stmt = $conn->prepare($sql);
-        if ($stmt) {
-            $stmt->bind_param("ssss", $title, $content, $image_url, $author);
-
-            if ($stmt->execute()) {
-                $_SESSION['message'] = "Thêm bài viết mới thành công!"; // Sử dụng session cho thông báo sau redirect
-                header('Location: admin_blog.php');
-                exit();
-            } else {
-                $message = "Lỗi khi thêm bài viết vào CSDL: " . $conn->error;
-                $error = true; // Set local $error for display on current page
-            }
-            $stmt->close();
-        } else {
-            $message = "Lỗi chuẩn bị câu lệnh SQL: " . $conn->error;
-            $error = true;
-        }
-    } else {
-        // If there are validation errors, combine them into a single message for display
-        $message = implode('<br>', $validation_messages);
-        $error = true;
-    }
-}
-mysqli_close($conn);
 ?>
 <!DOCTYPE html>
 <html lang="vi">
@@ -122,9 +37,6 @@ mysqli_close($conn);
         .btn-submit:hover { background-color: #a07d56; }
         .btn-cancel { background-color: #6c757d; color: white; padding: 10px 20px; border: none; border-radius: 5px; text-decoration: none; font-weight: bold; transition: background-color 0.3s; }
         .btn-cancel:hover { background-color: #5a6268; }
-        .message { padding: 10px; border-radius: 5px; margin-bottom: 20px; }
-        .message.success { background-color: #2b442e; color: #a7d7b0; border: 1px solid #38573c; }
-        .message.error { background-color: #4d2a2d; color: #e8a0a6; border: 1px solid #6e3b40; }
     </style>
 </head>
 <body>
@@ -136,10 +48,7 @@ mysqli_close($conn);
         </div>
 
         <div class="form-container">
-            <?php if ($message): ?>
-                <div class="message <?php echo $error ? 'error' : 'success'; ?>"><?php echo $message; ?></div>
-            <?php endif; ?>
-            <form action="add_blog_post.php" method="POST" enctype="multipart/form-data">
+            <form action="../PHP/process_add_blog_post.php" method="POST" enctype="multipart/form-data">
                 <div class="form-group">
                     <label for="title">Tiêu đề bài viết</label>
                     <input type="text" id="title" name="title" required>

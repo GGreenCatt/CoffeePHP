@@ -76,9 +76,9 @@ $tong_cong = $tam_tinh + $phi_ship - $giam_gia;
                     <td><?php echo htmlspecialchars($item['ten']); ?></td>
                     <td><?php echo number_format($item['gia'], 0, ',', '.'); ?> VNĐ</td>
                     <td>
-                        <input type="number" name="soluong[<?php echo $id; ?>]" value="<?php echo $item['soluong']; ?>" min="1" class="quantity-input">
+                        <input type="number" name="soluong[<?php echo $id; ?>]" value="<?php echo $item['soluong']; ?>" min="1" class="quantity-input" data-id="<?php echo $id; ?>">
                     </td>
-                    <td><?php echo number_format($item['gia'] * $item['soluong'], 0, ',', '.'); ?> VNĐ</td>
+                    <td id="item-total-<?php echo $id; ?>"><?php echo number_format($item['gia'] * $item['soluong'], 0, ',', '.'); ?> VNĐ</td>
                 </tr>
                 <?php endforeach; ?>
                 </table>
@@ -90,7 +90,7 @@ $tong_cong = $tam_tinh + $phi_ship - $giam_gia;
                 <table>
                         <tr>
                             <td>Tạm tính:</td>
-                            <td><?php echo number_format($tam_tinh, 0, ',', '.'); ?> VNĐ</td>
+                            <td id="subtotal-value"><?php echo number_format($tam_tinh, 0, ',', '.'); ?> VNĐ</td>
                         </tr>
                         <tr>
                             <td>Phí ship:</td>
@@ -124,6 +124,54 @@ $tong_cong = $tam_tinh + $phi_ship - $giam_gia;
   <!--Footer-->
   <?php include_once("../PHP/Footer.php") ?>
 <script>
+        // Debounce function to limit API calls
+        function debounce(func, wait) {
+            let timeout;
+            return function(...args) {
+                clearTimeout(timeout);
+                timeout = setTimeout(() => func.apply(this, args), wait);
+            };
+        }
+
+        // Handle quantity change
+        const quantityInputs = document.querySelectorAll('.quantity-input');
+        quantityInputs.forEach(input => {
+            input.addEventListener('input', debounce(function() {
+                const productId = this.dataset.id;
+                const newQuantity = this.value;
+
+                if (newQuantity < 1) return;
+
+                fetch('../PHP/update_cart_ajax.php', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                    body: `id=${productId}&soluong=${newQuantity}`
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        // Update item total
+                        document.getElementById(`item-total-${productId}`).textContent = data.item_total;
+                        // Update subtotal
+                        document.getElementById('subtotal-value').textContent = data.tam_tinh;
+                        // Update grand total
+                        document.getElementById('total-value').textContent = data.tong_cong;
+                        // Update discount if applicable
+                        if (data.giam_gia) {
+                            document.getElementById('discount-value').textContent = '- ' + data.giam_gia;
+                        }
+                        // Update cart count badge in navbar (if exists)
+                        const cartCountEl = document.getElementById('cart-item-count');
+                        if (cartCountEl) cartCountEl.textContent = data.cart_count;
+                        
+                        const cartCountFixedEl = document.getElementById('cart-item-count-fixed');
+                        if (cartCountFixedEl) cartCountFixedEl.textContent = data.cart_count;
+                    }
+                })
+                .catch(err => console.error('Error updating cart:', err));
+            }, 500)); // 1 second delay
+        });
+
         document.getElementById('apply-promo-btn').addEventListener('click', function() {
             let promoCode = document.getElementById('promo-code-input').value;
 
