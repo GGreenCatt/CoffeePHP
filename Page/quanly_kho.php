@@ -91,7 +91,7 @@ $result = $stmt->get_result();
                                 <a href="chinhsua_nguyenlieu.php?id=<?php echo $row['idNguyenLieu']; ?>" title="Sửa">
                                     <span class="material-symbols-outlined icon-edit">edit</span>
                                 </a>
-                                <a href="../PHP/delete_nguyenlieu.php?id=<?php echo $row['idNguyenLieu']; ?>" title="Xóa" onclick="return confirm('Bạn có chắc chắn muốn xóa vĩnh viễn nguyên liệu này? Mọi công thức liên quan cũng sẽ bị ảnh hưởng.');">
+                                <a href="javascript:void(0);" onclick="confirmDelete(<?php echo $row['idNguyenLieu']; ?>)" title="Xóa">
                                     <span class="material-symbols-outlined icon-delete">delete</span>
                                 </a>
                             </td>
@@ -103,5 +103,36 @@ $result = $stmt->get_result();
         </table>
     </div>
     
+    <script>
+    function confirmDelete(id) {
+        Swal.fire({
+            title: 'Bạn có chắc chắn?',
+            text: "Bạn muốn xóa vĩnh viễn nguyên liệu này? Mọi công thức liên quan cũng sẽ bị ảnh hưởng.",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'Vâng, xóa nó!',
+            cancelButtonText: 'Hủy'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = '../PHP/delete_nguyenlieu.php?id=' + id;
+            }
+        })
+    }
+    </script>
+
+    <?php
+    // Hiển thị thông báo thành công
+    if (isset($_SESSION['inventory_success'])) {
+        echo "<script>Swal.fire({toast: true, position: 'top-end', icon: 'success', title: '" . addslashes($_SESSION['inventory_success']) . "', showConfirmButton: false, timer: 2000});</script>";
+        unset($_SESSION['inventory_success']);
+    }
+    // Hiển thị thông báo lỗi
+    if (isset($_SESSION['inventory_error'])) {
+        echo "<script>Swal.fire({icon: 'error', title: 'Lỗi', text: '" . addslashes($_SESSION['inventory_error']) . "'});</script>";
+        unset($_SESSION['inventory_error']);
+    }
+    ?>
 </body>
 </html>

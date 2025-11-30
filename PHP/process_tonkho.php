@@ -49,15 +49,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $stmt_log->execute();
         
         $conn->commit();
-        $_SESSION['update_status_success'] = "Đã cập nhật tồn kho thành công!";
+        $_SESSION['inventory_success'] = "Đã cập nhật tồn kho thành công!";
 
     } catch (Exception $e) {
         $conn->rollback();
         // Lưu lỗi vào session để hiển thị trên trang trước đó
-        $_SESSION['update_status_error'] = "Lỗi: " . $e->getMessage();
+        $_SESSION['inventory_error'] = "Lỗi: " . $e->getMessage();
     }
 
-    header("Location: ../Page/capnhat_tonkho.php");
+    header("Location: ../Page/quanly_kho.php");
     exit();
 }
 ?>

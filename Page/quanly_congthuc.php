@@ -98,7 +98,8 @@ if (isset($_GET['id_sp']) && !empty($_GET['id_sp'])) {
                         <?php endwhile; ?>
                 </table>
 
-                <div class="form-group-buttons">
+                <div class="form-group-buttons" style="display: flex; justify-content: flex-end; gap: 10px;">
+                    <button type="button" onclick="confirmDelete(<?php echo $id_sp_chon; ?>)" class="btn-primary" style="background-color: #dc3545;">Xóa Công Thức</button>
                     <button type="submit" class="btn-primary">Lưu Công Thức</button>
                 </div>
             </form>
@@ -106,11 +107,35 @@ if (isset($_GET['id_sp']) && !empty($_GET['id_sp'])) {
         <?php endif; ?>
     </div>
 
+    <script>
+    function confirmDelete(id_sp) {
+        Swal.fire({
+            title: 'Bạn có chắc chắn?',
+            text: "Bạn muốn xóa toàn bộ công thức cho sản phẩm này?",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'Vâng, xóa nó!',
+            cancelButtonText: 'Hủy'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = '../PHP/delete_congthuc.php?id_sp=' + id_sp;
+            }
+        })
+    }
+    </script>
+
     <?php
     // Hiển thị thông báo thành công nếu có
     if (isset($_SESSION['promo_success'])) {
         echo "<script>Swal.fire({toast: true, position: 'top-end', icon: 'success', title: '" . addslashes($_SESSION['promo_success']) . "', showConfirmButton: false, timer: 2000});</script>";
         unset($_SESSION['promo_success']);
+    }
+    // Hiển thị thông báo lỗi nếu có
+    if (isset($_SESSION['promo_error'])) {
+        echo "<script>Swal.fire({icon: 'error', title: 'Lỗi', text: '" . addslashes($_SESSION['promo_error']) . "'});</script>";
+        unset($_SESSION['promo_error']);
     }
     ?>
 </body>
