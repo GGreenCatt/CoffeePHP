@@ -78,21 +78,46 @@ $conn->close();
                 <h2>Các sản phẩm đã đặt</h2>
             </div>
             <div class="product-list">
-                <?php foreach ($items as $item): ?>
+                <?php 
+                $tam_tinh = 0;
+                foreach ($items as $item): 
+                    $thanh_tien_sp = $item['DonGia'] * $item['SoLuong'];
+                    $tam_tinh += $thanh_tien_sp;
+                ?>
                     <div class="info-line">
                         <img src="../Pic/<?php echo htmlspecialchars($item['idSanpham']); ?>.jpg" alt="">
                         <span class="product-name"><?php echo htmlspecialchars($item['TenSanPham']); ?> (x<?php echo $item['SoLuong']; ?>)</span>
-                        <span><?php echo number_format($item['DonGia'] * $item['SoLuong'], 0, ',', '.'); ?> VNĐ</span>
+                        <span><?php echo number_format($thanh_tien_sp, 0, ',', '.'); ?> VNĐ</span>
                     </div>
                 <?php endforeach; ?>
             </div>
-            <div class="info-line order-total"><!--Thêm phí ship mặc định là 30.000VN-->
+            
+            <div class="info-line" style="margin-top: 20px; border-top: 1px solid #eee; padding-top: 15px;">
+                <span>Tạm tính:</span>
+                <span><?php echo number_format($tam_tinh, 0, ',', '.'); ?> VNĐ</span>
+            </div>
+            
+            <div class="info-line">
                 <span>Phí ship:</span>
                 <span>30.000 VNĐ</span>
             </div>
+            
+            <?php 
+            $phi_ship = 30000;
+            $tong_cong_thuc_te = $order['TongTien'];
+            $giam_gia = ($tam_tinh + $phi_ship) - $tong_cong_thuc_te;
+            
+            if ($giam_gia > 0): 
+            ?>
+            <div class="info-line">
+                <span>Giảm giá:</span>
+                <span style="color: red;">- <?php echo number_format($giam_gia, 0, ',', '.'); ?> VNĐ</span>
+            </div>
+            <?php endif; ?>
+            
             <div class="info-line order-total">
                 <span>TỔNG CỘNG</span>
-                <span><?php echo number_format($order['TongTien'], 0, ',', '.'); ?> VNĐ</span>
+                <span><?php echo number_format($tong_cong_thuc_te, 0, ',', '.'); ?> VNĐ</span>
             </div>
         </div>
 

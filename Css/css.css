@@ -57,7 +57,7 @@ html,body{
           margin-bottom: 0;
           width: 70%; /* Tăng độ rộng */
           gap: 10px; /* Thêm khoảng cách giữa các mục */
-          margin-left: 10%;
+          margin-right: 10%;
       }
       .nav-link{
         padding-top: 10px;

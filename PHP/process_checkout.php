@@ -40,9 +40,11 @@ try {
     $tong_tien = $tam_tinh + $phi_ship - $giam_gia;
     if ($tong_tien < 0) $tong_tien = 0;
 
-    $sql_donhang = "INSERT INTO donhang (idTaiKhoan, TenNguoiNhan, SoDienThoaiNhan, DiaChiNhan, TongTien) VALUES (?, ?, ?, ?, ?)";
+    $ma_khuyen_mai = $_SESSION['promo']['code'] ?? NULL; // Lấy mã khuyến mãi từ session nếu có
+
+    $sql_donhang = "INSERT INTO donhang (idTaiKhoan, TenNguoiNhan, SoDienThoaiNhan, DiaChiNhan, TongTien, MaKhuyenMai) VALUES (?, ?, ?, ?, ?, ?)";
     $stmt_donhang = $conn->prepare($sql_donhang);
-    $stmt_donhang->bind_param("isssd", $id_tai_khoan, $ho_ten, $sdt, $dia_chi, $tong_tien);
+    $stmt_donhang->bind_param("isssds", $id_tai_khoan, $ho_ten, $sdt, $dia_chi, $tong_tien, $ma_khuyen_mai);
     $stmt_donhang->execute();
 
     $id_don_hang = $conn->insert_id;
