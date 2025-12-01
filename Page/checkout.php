@@ -39,10 +39,38 @@ $tong_cong = $tam_tinh + $phi_ship - $giam_gia;
 if ($tong_cong < 0) $tong_cong = 0;
 
 /* ====== Cấu hình QR chuyển khoản (bạn sửa cho phù hợp) ====== */
-$qr_image_path   = '../Pic/QR.png'; // <-- ĐƯỜNG DẪN ẢNH QR CỦA BẠN
+// Hàm tính CRC16 cho VietQR (CCITT-FALSE)
+if (!function_exists('crc16_ccitt_false')) {
+    function crc16_ccitt_false($str) {
+        $crc = 0xFFFF;
+        for ($c = 0; $c < strlen($str); $c++) {
+            $crc ^= (ord($str[$c]) << 8);
+            for ($i = 0; $i < 8; $i++) {
+                if ($crc & 0x8000) {
+                    $crc = ($crc << 1) ^ 0x1021;
+                } else {
+                    $crc = $crc << 1;
+                }
+            }
+        }
+        return $crc & 0xFFFF;
+    }
+}
+
+// Tạo chuỗi VietQR động
+$payload_prefix = "00020101021238540010A00000072701240006970436011010280774230208QRIBFTTA5303704";
+$amount_str = (string)$tong_cong;
+$amount_tag = "54" . sprintf("%02d", strlen($amount_str)) . $amount_str;
+$payload_suffix = "5802VN62210817Thanh toan ca phe"; // Nội dung cố định
+$full_str_no_crc = $payload_prefix . $amount_tag . $payload_suffix . "6304";
+$crc_val = strtoupper(sprintf("%04x", crc16_ccitt_false($full_str_no_crc)));
+$qr_content = $full_str_no_crc . $crc_val;
+
+// Gọi API QuickChart
+$qr_image_path   = 'https://quickchart.io/qr?text=' . urlencode($qr_content) . '&size=300';
 $qr_bank_label   = 'Quét mã QR để chuyển khoản';
 $qr_owner_name   = 'LE MY DUNG';
-$qr_note_hint    = 'Nội dung chuyển khoản: SĐT hoặc Họ tên đặt hàng';
+$qr_note_hint    = 'Nội dung chuyển khoản: Thanh toan ca phe';
 /* ============================================================ */
 ?>
 <!DOCTYPE html>
@@ -138,7 +166,7 @@ $qr_note_hint    = 'Nội dung chuyển khoản: SĐT hoặc Họ tên đặt h�
 
                     <div id="qrWrap" class="qr-wrap">
                       <div class="qr-flex">
-                        <img class="qr-img" src="../Pic/QR.png" alt="QR thanh toán">
+                        <img class="qr-img" src="<?php echo htmlspecialchars($qr_image_path); ?>" alt="QR thanh toán">
                         <div class="qr-info">
                           <p><strong><?php echo htmlspecialchars($qr_bank_label); ?></strong></p>
                           <p>Chủ tài khoản: <strong><?php echo htmlspecialchars($qr_owner_name); ?></strong></p>
