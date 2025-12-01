@@ -6,7 +6,7 @@ if (session_status() == PHP_SESSION_NONE) {
 $current_page = basename($_SERVER['PHP_SELF']);
 
 // *** CẬP NHẬT MẢNG NÀY: Đã xóa 'capnhat_tonkho.php' ***
-$storage_pages = ['storage.php', 'add_product.php', 'edit_product.php', 'quanly_kho.php', 'quanly_congthuc.php', 'chinhsua_nguyenlieu.php', 'lichsu_nhapxuat.php']; 
+$storage_pages = ['storage.php', 'add_product.php', 'edit_product.php', 'quanly_kho.php', 'quanly_congthuc.php', 'chinhsua_nguyenlieu.php', 'lichsu_nhapxuat.php', 'quanly_giatien.php']; 
 $order_pages = ['orders.php', 'order_details_admin.php'];
 $customer_pages = ['customers.php', 'customer_details.php'];
 ?>
@@ -33,6 +33,7 @@ $customer_pages = ['customers.php', 'customer_details.php'];
           <div class="dropdown-content">
               <a href="../Page/storage.php">Quản Lý Sản Phẩm</a>
               <a href="../Page/quanly_kho.php">Tồn Kho Nguyên Liệu</a>
+              <a href="../Page/quanly_giatien.php">Quản Lý Giá Tiền</a>
               <a href="../Page/quanly_congthuc.php">Quản Lý Công Thức</a>
               <a href="../Page/lichsu_nhapxuat.php">Lịch Sử Nhập/Xuất</a>
           </div>

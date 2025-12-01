@@ -8,6 +8,7 @@ $sql = "SELECT
             tk.HoTen AS NguoiThucHien,
             ls.HanhDong,
             ls.SoLuong,
+            ls.TongTien,
             ls.SoLuongTruoc,
             ls.SoLuongSau,
             ls.LyDo
@@ -43,6 +44,7 @@ $sql = "SELECT
                     <th>Nguyên Liệu</th>
                     <th>Hành Động</th>
                     <th>Số Lượng</th>
+                    <th>Tổng Tiền</th>
                     <th>Tồn Kho (Trước -> Sau)</th>
                     <th>Lý Do</th>
                     <th>Người Thực Hiện</th>
@@ -52,19 +54,24 @@ $sql = "SELECT
                         <?php
                             $action_class = ($row['HanhDong'] == 'Nhập kho') ? 'hanh-dong-nhap' : 'hanh-dong-xuat';
                             $action_prefix = ($row['HanhDong'] == 'Nhập kho') ? '+' : '-';
+
+                            // Logic tiền: Nhập = Trừ tiền (Đỏ), Xuất = Cộng tiền (Xanh)
+                            $money_class = ($row['HanhDong'] == 'Nhập kho') ? 'hanh-dong-xuat' : 'hanh-dong-nhap';
+                            $money_prefix = ($row['HanhDong'] == 'Nhập kho') ? '-' : '+';
                         ?>
                         <tr>
                             <td><?php echo date('d/m/Y H:i', strtotime($row['ThoiGian'])); ?></td>
                             <td><strong><?php echo htmlspecialchars($row['TenNguyenLieu']); ?></strong></td>
                             <td class="<?php echo $action_class; ?>"><?php echo htmlspecialchars($row['HanhDong']); ?></td>
                             <td class="<?php echo $action_class; ?>"><?php echo $action_prefix . number_format($row['SoLuong'], 2); ?></td>
+                            <td><span class="<?php echo $money_class; ?>"><?php echo $money_prefix . number_format($row['TongTien'] ?? 0, 0); ?> đ</span></td>
                             <td><?php echo number_format($row['SoLuongTruoc'], 2) . " -> " . number_format($row['SoLuongSau'], 2); ?></td>
                             <td><?php echo htmlspecialchars($row['LyDo']); ?></td>
                             <td><?php echo htmlspecialchars($row['NguoiThucHien'] ?? 'N/A'); ?></td>
                         </tr>
                     <?php endwhile; ?>
                 <?php else: ?>
-                    <tr><td colspan="7" style="text-align: center;">Chưa có lịch sử nhập/xuất kho.</td></tr>
+                    <tr><td colspan="8" style="text-align: center;">Chưa có lịch sử nhập/xuất kho.</td></tr>
                 <?php endif; ?>
         </table>
     </div>

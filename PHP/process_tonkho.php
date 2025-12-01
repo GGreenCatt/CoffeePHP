@@ -22,6 +22,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
         $so_luong_truoc = $result_before->fetch_assoc()['SoLuongConLai'];
         
+        // 1.5 Lấy thông tin giá từ bảng giatien_nguyenlieu
+        $stmt_get_price = $conn->prepare("SELECT GiaNhap, GiaXuat FROM giatien_nguyenlieu WHERE idNguyenLieu = ?");
+        $stmt_get_price->bind_param("i", $id_nguyen_lieu);
+        $stmt_get_price->execute();
+        $result_price = $stmt_get_price->get_result();
+        $price_info = $result_price->fetch_assoc();
+        
+        $don_gia = 0;
+        if ($price_info) {
+             $don_gia = ($action == 'nhap') ? $price_info['GiaNhap'] : $price_info['GiaXuat'];
+        }
+        $tong_tien = $quantity * $don_gia;
+
         // 2. Cập nhật tồn kho
         $so_luong_sau = 0;
         if ($action == 'nhap') {
@@ -41,11 +54,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $stmt_update->bind_param("di", $quantity, $id_nguyen_lieu);
         $stmt_update->execute();
 
-        // 3. Ghi lại lịch sử
+        // 3. Ghi lại lịch sử (Thêm cột TongTien)
         $hanh_dong_text = ($action == 'nhap') ? 'Nhập kho' : 'Xuất kho';
-        $sql_log = "INSERT INTO lichsu_tonkho (idNguyenLieu, idNguoiThucHien, HanhDong, SoLuong, SoLuongTruoc, SoLuongSau, LyDo) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        $sql_log = "INSERT INTO lichsu_tonkho (idNguyenLieu, idNguoiThucHien, HanhDong, SoLuong, TongTien, SoLuongTruoc, SoLuongSau, LyDo) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         $stmt_log = $conn->prepare($sql_log);
-        $stmt_log->bind_param("iisddds", $id_nguyen_lieu, $id_user, $hanh_dong_text, $quantity, $so_luong_truoc, $so_luong_sau, $reason);
+        $stmt_log->bind_param("iisdddds", $id_nguyen_lieu, $id_user, $hanh_dong_text, $quantity, $tong_tien, $so_luong_truoc, $so_luong_sau, $reason);
         $stmt_log->execute();
         
         $conn->commit();
